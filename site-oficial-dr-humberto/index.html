@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- Website Oficial Dr. Humberto Calicchio - Psiquiatria e Psicanálise em Campinas (UNICAMP) -->
+<html lang="pt-BR" class="scroll-smooth" data-theme="light" style="color-scheme: light;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+      (function() {
+        try {
+          var migrated = localStorage.getItem('dr_calicchio_circadian_migrated');
+          if (migrated !== 'v2') {
+            localStorage.setItem('dr_calicchio_circadian_migrated', 'v2');
+            localStorage.setItem('dr_calicchio_theme_preference', 'auto');
+          }
+          var saved = localStorage.getItem('dr_calicchio_theme_preference');
+          var hour = new Date().getHours();
+          var isNightTime = hour < 6 || hour >= 18; // Noite: 18h às 06h
+          var activeTheme = 'light'; // Padrão solicitado: Modo Claro diurno
+
+          if (saved === 'dark') {
+            activeTheme = 'dark';
+          } else if (saved === 'light') {
+            activeTheme = 'light';
+          } else {
+            // Modo Automático Circadiano (padrão): Claro de dia (06h às 18h) e Noturno à noite (18h às 06h)
+            activeTheme = isNightTime ? 'dark' : 'light';
+          }
+
+          if (activeTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468</title>
+    <meta name="description" content="Psiquiatra e Psicanalista em Campinas formado pela UNICAMP (CRM-SP 100468 / RQE 31774). Consultas de 90 min no Edifício Prime Office Plaza (Guanabara). Tratamento particular para ansiedade, depressão, pânico e TEA.">
+    
+    <!-- Tailwind CSS CDN for instant perfect rendering -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6b21a8',
+              secondary: '#0071e3',
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Geo Meta Tags & Local SEO - Campinas, SP (Prime Office Plaza) -->
+    <meta name="geo.region" content="BR-SP">
+    <meta name="geo.placename" content="Campinas">
+    <meta name="geo.position" content="-22.8874;-47.0694">
+    <meta name="ICBM" content="-22.8874, -47.0694">
+    <meta name="place:location:latitude" content="-22.8874">
+    <meta name="place:location:longitude" content="-47.0694">
+    <meta name="business:contact_data:street_address" content="R. Clóvis Beviláqua, 243, Sala 06 - Edifício Prime Office Plaza">
+    <meta name="business:contact_data:locality" content="Campinas">
+    <meta name="business:contact_data:region" content="SP">
+    <meta name="business:contact_data:postal_code" content="13073-021">
+    <meta name="business:contact_data:country_name" content="Brasil">
+    <meta name="business:contact_data:email" content="calicchio@hotmail.com">
+    <meta name="business:contact_data:phone_number" content="+5519982505777">
+    <meta name="theme-color" content="#fbfbfd">
+
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="bF0cXC3kS3sboO4Ir-8vzXv54KDcHhAusTATH5Y9qMk">
+
+    <!-- Google tag (gtag.js) - Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R27GZWJ4SE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R27GZWJ4SE', {
+        page_title: document.title,
+        page_location: window.location.href,
+        send_page_view: true
+      });
+    </script>
+
+    <!-- Meta Palavras-Chave & SEO Local Campinas -->
+    <meta name="keywords" content="psiquiatra campinas, psiquiatra em campinas, psiquiatra guanabara campinas, psicanalista campinas, dr humberto calicchio, crm-sp 100468, rqe 31774, tratamento ansiedade campinas, tratamento depressao campinas, ed prime office plaza campinas, psiquiatra unicamp campinas, consulta psiquiatrica 90 minutos, psicanalise winnicott campinas, avaliacao tea adulto campinas, tdah adulto campinas, psiquiatra cambui campinas">
+
+    <link rel="canonical" href="https://www.psiquiatraemcampinas.com/">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+    <!-- Open Graph & Social Cards -->
+    <meta property="og:site_name" content="Dr. Humberto Calicchio — Psiquiatria &amp; Psicanálise em Campinas">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:url" content="https://www.psiquiatraemcampinas.com/">
+    <meta property="og:title" content="Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468 RQE 31774">
+    <meta property="og:description" content="Consultório do Dr. Humberto Calicchio (CRM-SP 100468 / RQE 31774), médico psiquiatra e psicanalista formado pela UNICAMP. Atendimento particular a ansiedade, depressão, pânico e TEA no Edifício Prime Office Plaza (Guanabara, Campinas - SP).">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://www.psiquiatraemcampinas.com/#website",
+          "url": "https://www.psiquiatraemcampinas.com",
+          "name": "Dr. Humberto Calicchio — Psiquiatra e Psicanalista em Campinas",
+          "description": "Consultório de Psiquiatria Clínica Integrativa e Psicanálise do Dr. Humberto Calicchio no Edifício Prime Office Plaza, Campinas - SP."
+        },
+        {
+          "@type": ["MedicalClinic", "LocalBusiness", "MedicalBusiness"],
+          "@id": "https://www.psiquiatraemcampinas.com/#clinic",
+          "name": "Consultório Dr. Humberto Calicchio — Psiquiatria & Psicanálise em Campinas",
+          "description": "Consultório de Psiquiatria Clínica Integrativa e Psicanálise do Dr. Humberto Calicchio no Edifício Prime Office Plaza, Bairro Guanabara / Jardim Brasil em Campinas - SP. Atendimento médico especializado a adultos e idosos com consultas de 90 minutos para ansiedade, depressão, síndrome do pânico, TEA e TDAH.",
+          "url": "https://www.psiquiatraemcampinas.com",
+          "telephone": "+5519982505777",
+          "email": "calicchio@hotmail.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "R. Clóvis Beviláqua, 243, Sala 06 - Edifício Prime Office Plaza",
+            "addressLocality": "Campinas",
+            "addressRegion": "SP",
+            "postalCode": "13073-021",
+            "addressCountry": "BR"
+          }
+        },
+        {
+          "@type": "Physician",
+          "@id": "https://www.psiquiatraemcampinas.com/#physician",
+          "name": "Dr. Humberto Calicchio",
+          "jobTitle": "Médico Psiquiatra e Psicanalista",
+          "alumniOf": "Faculdade de Ciências Médicas da Universidade Estadual de Campinas (UNICAMP)",
+          "identifier": [
+            { "@type": "PropertyValue", "name": "CRM-SP", "value": "100468" },
+            { "@type": "PropertyValue", "name": "RQE", "value": "31774" }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      .font-serif-editorial {
+        font-family: 'Newsreader', Georgia, serif;
+      }
+      .custom-clinic-pin {
+        background: transparent;
+        border: none;
+      }
+    </style>
+</head>
+<body class="bg-[#fbfbfd] dark:bg-[#08060c] text-[#1d1d1f] dark:text-[#f5f5f7] antialiased selection:bg-purple-700 selection:text-white transition-colors duration-300">
+
+  <div id="root"></div>
+  <link rel="stylesheet" href="/Psiquiatra em Campinas — Dr. Humberto Calicchio _ CRM-SP 100468_files/index-ZzAGmC6s.css">
+  <script type="module" src="/Psiquiatra em Campinas — Dr. Humberto Calicchio _ CRM-SP 100468_files/index-Td0Jv10q.js"></script>
+</body>
+</html>

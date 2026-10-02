@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bgGrad" cx="46%" cy="44%" r="58%">
+      <stop offset="0%" stop-color="#67256b" />
+      <stop offset="65%" stop-color="#5a1f5d" />
+      <stop offset="100%" stop-color="#4a174c" />
+    </radialGradient>
+    <linearGradient id="ribbonGrad" x1="15%" y1="15%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#cb66d4" stop-opacity="0.95" />
+      <stop offset="45%" stop-color="#ba53c2" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#9d39a5" stop-opacity="0.85" />
+    </linearGradient>
+    <linearGradient id="whiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#fdf8ff" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Circular Base -->
+  <circle cx="256" cy="256" r="248" fill="url(#bgGrad)" />
+
+  <!-- Background Ribbon Loops (flowing behind and through the letterforms) -->
+  <g fill="none" stroke="url(#ribbonGrad)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Upper-left back loop -->
+    <path d="M 230 180 C 175 145, 125 150, 138 200 C 148 238, 205 235, 275 238 C 345 240, 395 210, 398 245 C 400 270, 375 290, 320 280 C 265 270, 185 245, 135 275 C 95 300, 120 345, 185 348 C 245 350, 305 315, 375 305" 
+          stroke-width="24" opacity="0.92" />
+    
+    <!-- Secondary delicate crossover flourish -->
+    <path d="M 148 335 C 185 350, 240 330, 290 280 C 340 230, 390 195, 402 220 C 412 240, 380 275, 340 300" 
+          stroke-width="14" opacity="0.75" />
+  </g>
+
+  <!-- Serif Monogram Letterforms in Pure White -->
+  <g fill="url(#whiteGrad)" filter="url(#softShadow)">
+    <!-- Roman Serif "I" (Left Vertical Column) -->
+    <!-- Top Serif -->
+    <path d="M 152 165 C 160 165, 168 167, 172 172 C 175 177, 176 183, 176 195 L 176 200 L 202 200 L 202 195 C 202 183, 203 177, 206 172 C 210 167, 218 165, 226 165 L 226 155 L 152 155 Z" />
+    <!-- Vertical Main Stem -->
+    <rect x="180" y="195" width="18" height="122" />
+    <!-- Bottom Serif -->
+    <path d="M 152 347 L 152 357 L 226 357 L 226 347 C 218 347, 210 345, 206 340 C 203 335, 202 329, 202 317 L 202 312 L 176 312 L 176 317 C 176 329, 175 335, 172 340 C 168 345, 160 347, 152 347 Z" />
+
+    <!-- Intertwined Serif "C" (Right Curve) -->
+    <path d="M 365 174 C 352 161, 335 152, 314 152 C 265 152, 235 195, 235 256 C 235 317, 266 360, 318 360 C 338 360, 355 352, 368 338 L 358 322 C 347 332, 334 338, 318 338 C 282 338, 258 305, 258 256 C 258 207, 282 174, 316 174 C 330 174, 342 180, 352 190 Z" />
+    <!-- Top finial of C -->
+    <path d="M 364 173 C 369 167, 375 168, 377 175 C 378 181, 372 187, 365 186 Z" />
+    <!-- Bottom beak of C -->
+    <path d="M 368 337 C 374 340, 376 347, 372 353 C 368 357, 362 355, 358 349 Z" />
+  </g>
+</svg>
