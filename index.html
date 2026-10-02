@@ -6,8 +6,10 @@
   <title>Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468 RQE 31774</title>
   <meta name="description" content="Consultório de Psiquiatria Clínica e Psicanálise do Dr. Humberto Calicchio (UNICAMP) no Edifício Prime Office Plaza, Bairro Guanabara, Campinas - SP. Consultas de 90 minutos para ansiedade, depressão, pânico e TEA no adulto.">
   
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22 width=%22100%22 height=%22100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -16,12 +18,23 @@
         extend: {
           colors: {
             brand: {
-              50: "#faf5ff", 100: "#f3e8ff", 200: "#e9d5ff", 300: "#d8b4fe",
-              400: "#c084fc", 500: "#a855f7", 600: "#9333ea", 700: "#7e22ce",
-              800: "#6b21a8", 900: "#581c87", 950: "#3b0764",
+              50: "#faf5ff",
+              100: "#f3e8ff",
+              200: "#e9d5ff",
+              300: "#d8b4fe",
+              400: "#c084fc",
+              500: "#a855f7",
+              600: "#9333ea",
+              700: "#7e22ce",
+              800: "#6b21a8",
+              900: "#581c87",
+              950: "#3b0764",
             },
             clinic: {
-              gold: "#c5a880", dark: "#0c0a12", surface: "#161224", border: "#27203d"
+              gold: "#c5a880",
+              dark: "#0c0a12",
+              surface: "#161224",
+              border: "#27203d"
             }
           },
           fontFamily: {
@@ -33,13 +46,16 @@
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Leaflet CSS & JS for Interactive Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -75,9 +91,10 @@
     ]
   }
   </script>
-</head>
-<body class="bg-clinic-dark text-slate-100 antialiased font-sans">
+<script src="/_aistudio-iframe.js?v=2c34bde1"></script></head>
+<body class="bg-clinic-dark text-slate-100 antialiased selection:bg-purple-700 selection:text-white font-sans">
 
+  <!-- Top Announcement Bar -->
   <div class="bg-brand-950 border-b border-brand-900/60 py-2.5 px-4 text-center text-xs text-brand-200">
     <div class="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center gap-2">
@@ -86,13 +103,14 @@
       </div>
       <div class="flex items-center gap-4 text-slate-300">
         <span>📍 Prime Office Plaza — Guanabara, Campinas</span>
-        <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="text-brand-300 hover:text-white font-medium transition">
+        <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="text-brand-300 hover:text-white font-medium transition flex items-center gap-1">
           WhatsApp: (19) 98250-5777 ↗
         </a>
       </div>
     </div>
   </div>
 
+  <!-- Header / Navigation -->
   <header class="sticky top-0 z-40 bg-clinic-dark/90 backdrop-blur-md border-b border-clinic-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
       <a href="#" class="flex flex-col">
@@ -109,12 +127,13 @@
         <a href="#localizacao" class="hover:text-brand-300 transition">Localização</a>
       </nav>
 
-      <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide uppercase shadow-lg shadow-purple-900/30 transition">
+      <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide uppercase shadow-lg shadow-purple-900/30 transition transform hover:-translate-y-0.5">
         Agendar Consulta
       </a>
     </div>
   </header>
 
+  <!-- Hero Section -->
   <section class="relative overflow-hidden pt-16 pb-24 border-b border-clinic-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -177,6 +196,7 @@
     </div>
   </section>
 
+  <!-- Diferenciais / Pilares da Prática Clínica -->
   <section id="consultorio" class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
@@ -185,7 +205,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl">
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl relative">
           <div class="w-12 h-12 rounded-xl bg-purple-900/40 border border-purple-700/40 flex items-center justify-center text-xl mb-6">⏱️</div>
           <h4 class="text-lg font-bold text-white mb-3">Consultas de 90 Minutos</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
@@ -193,7 +213,7 @@
           </p>
         </div>
 
-        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl">
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl relative">
           <div class="w-12 h-12 rounded-xl bg-purple-900/40 border border-purple-700/40 flex items-center justify-center text-xl mb-6">🧠</div>
           <h4 class="text-lg font-bold text-white mb-3">Psiquiatria & Psicanálise</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
@@ -201,7 +221,7 @@
           </p>
         </div>
 
-        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl">
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl relative">
           <div class="w-12 h-12 rounded-xl bg-purple-900/40 border border-purple-700/40 flex items-center justify-center text-xl mb-6">🛡️</div>
           <h4 class="text-lg font-bold text-white mb-3">Privacidade & Reembolso</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
@@ -212,6 +232,7 @@
     </div>
   </section>
 
+  <!-- Especialidades -->
   <section id="especialidades" class="py-20 border-b border-clinic-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="max-w-3xl mb-14">
@@ -220,58 +241,61 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border">
+        
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
           <h4 class="text-white font-semibold text-base mb-2">Transtornos de Ansiedade & Pânico</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
             Diagnóstico diferencial para crise de pânico, ansiedade generalizada (TAG), fobias específicas e agorafobia, com remissão de sintomas e recuperação da estabilidade.
           </p>
         </div>
 
-        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border">
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
           <h4 class="text-white font-semibold text-base mb-2">Depressão & Transtornos do Humor</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
             Abordagem longitudinal para episódios depressivos, distimia e transtorno afetivo bipolar, visando restauração da vitalidade, sono e funcionalidade.
           </p>
         </div>
 
-        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border">
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
           <h4 class="text-white font-semibold text-base mb-2">Avaliação de TEA no Adulto</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
             Investigação diagnóstica do Transtorno do Espectro Autista em adultos, identificando sobrecarga sensorial, masking social e necessidade de adaptação de rotina.
           </p>
         </div>
 
-        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border">
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
           <h4 class="text-white font-semibold text-base mb-2">TDAH no Adulto</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
             Avaliação clínica criteriosa de desatenção crônica, hiperatividade e impulsividade com impacto na carreira profissional e na vida relacional.
           </p>
         </div>
 
-        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border">
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
           <h4 class="text-white font-semibold text-base mb-2">Transtorno Obsessivo-Compulsivo (TOC)</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
             Tratamento de pensamentos intrusivos, rituais compulsivos e ruminações obsessivas através de protocolos psicofarmacológicos baseados em evidências.
           </p>
         </div>
 
-        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border">
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
           <h4 class="text-white font-semibold text-base mb-2">Psicanálise Clínica & Psicoterapia</h4>
           <p class="text-slate-300 text-sm leading-relaxed">
             Sessões regulares em divã ou poltrona analítica para elaboração de lutos, conflitos inconscientes, angústia existencial e reencontro consigo mesmo.
           </p>
         </div>
+
       </div>
     </div>
   </section>
 
+  <!-- Sobre o Dr. Humberto Calicchio -->
   <section id="sobre" class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <div class="lg:col-span-5">
           <div class="rounded-2xl overflow-hidden border border-clinic-border bg-clinic-surface p-2 shadow-xl">
-            <img src="/dr-humberto-calicchio.jpeg" onerror="this.src='https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=80'" alt="Dr. Humberto Calicchio" class="w-full h-96 object-cover rounded-xl">
+            <img src="/assets/dr-humberto-calicchio.jpeg" onerror="this.src='https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=80'" alt="Dr. Humberto Calicchio" class="w-full h-96 object-cover rounded-xl">
             <div class="p-4 text-center">
               <div class="text-base font-bold text-white font-serif">Dr. Humberto Calicchio</div>
               <div class="text-xs text-brand-300 font-semibold mt-1">CRM-SP 100468 • RQE 31774</div>
@@ -307,6 +331,7 @@
     </div>
   </section>
 
+  <!-- Consultas & Valores & Reembolso -->
   <section id="consultas" class="py-20 border-b border-clinic-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       
@@ -358,6 +383,7 @@
     </div>
   </section>
 
+  <!-- Checklist Interativo -->
   <section id="checklist" class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
       
@@ -400,6 +426,7 @@
     </div>
   </section>
 
+  <!-- Localização & Mapa -->
   <section id="localizacao" class="py-20 border-b border-clinic-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       
@@ -444,6 +471,7 @@
     </div>
   </section>
 
+  <!-- FAQ Perguntas Frequentes -->
   <section class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-14">
@@ -452,39 +480,42 @@
       </div>
 
       <div class="space-y-4">
-        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 cursor-pointer">
+        
+        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
           <summary class="flex items-center justify-between font-semibold text-white text-base">
             <span>O Dr. Humberto atende diretamente por algum convênio médico?</span>
-            <span class="text-brand-400">▼</span>
+            <span class="transition group-open:rotate-180 text-brand-400">▼</span>
           </summary>
           <p class="mt-4 text-sm text-slate-300 leading-relaxed border-t border-clinic-border pt-4">
             Não. Os atendimentos são exclusivamente particulares para garantir consultas de 90 minutos com total tempo de dedicação e sem restrições das operadoras de saúde. É fornecida Nota Fiscal oficial com CRM e RQE para que você solicite o reembolso.
           </p>
         </details>
 
-        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 cursor-pointer">
+        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
           <summary class="flex items-center justify-between font-semibold text-white text-base">
             <span>Como funciona a teleconsulta para pacientes de outras cidades?</span>
-            <span class="text-brand-400">▼</span>
+            <span class="transition group-open:rotate-180 text-brand-400">▼</span>
           </summary>
           <p class="mt-4 text-sm text-slate-300 leading-relaxed border-t border-clinic-border pt-4">
             A telemedicina psiquiátrica é autorizada pelo CFM e realizada por link seguro de videoconferência. As receitas e atestados médicos são emitidos com assinatura digital ICP-Brasil e enviados por SMS/e-mail com validade em qualquer farmácia do Brasil.
           </p>
         </details>
 
-        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 cursor-pointer">
+        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
           <summary class="flex items-center justify-between font-semibold text-white text-base">
             <span>Como faço para agendar um horário?</span>
-            <span class="text-brand-400">▼</span>
+            <span class="transition group-open:rotate-180 text-brand-400">▼</span>
           </summary>
           <p class="mt-4 text-sm text-slate-300 leading-relaxed border-t border-clinic-border pt-4">
             O agendamento é feito diretamente pelo WhatsApp oficial <strong>(19) 98250-5777</strong> com a secretaria do consultório, que apresentará os dias e horários disponíveis para sua comodidade.
           </p>
         </details>
+
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="py-12 bg-clinic-dark text-slate-400 text-xs">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-clinic-border">
@@ -500,12 +531,13 @@
         </div>
       </div>
       <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
-        <p>© 2026 Dr. Humberto Calicchio. Todos os direitos reservados.</p>
+        <p>© 2026 Dr. Humberto Calicchio. Todos os direitos reservados. Em estrita conformidade com as normas éticas do CFM e CREMESP.</p>
         <p>Aviso: Este site tem caráter exclusivamente informativo e não substitui uma avaliação médica individualizada.</p>
       </div>
     </div>
   </footer>
 
+  <!-- Floating WhatsApp Action Button -->
   <div class="fixed bottom-6 right-6 z-50">
     <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="flex items-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-white px-5 py-3.5 rounded-full shadow-2xl shadow-emerald-950 font-semibold text-sm transition transform hover:scale-105">
       <span class="text-xl">💬</span>
@@ -513,6 +545,7 @@
     </a>
   </div>
 
+  <!-- Initialize Leaflet Map -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       try {
@@ -523,7 +556,9 @@
 
         var marker = L.marker([-22.8874, -47.0694]).addTo(map);
         marker.bindPopup("<strong>Dr. Humberto Calicchio</strong><br>Edifício Prime Office Plaza - Sala 06<br>Rua Clóvis Beviláqua, 243").openPopup();
-      } catch (e) {}
+      } catch (e) {
+        console.warn("Leaflet error:", e);
+      }
     });
   </script>
 
