@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468 RQE 31774</title>
+  <meta name="description" content="Consultório de Psiquiatria Clínica e Psicanálise do Dr. Humberto Calicchio (UNICAMP) no Edifício Prime Office Plaza, Bairro Guanabara, Campinas - SP. Consultas de 90 minutos para ansiedade, depressão, pânico e TEA no adulto.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22 width=%22100%22 height=%22100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#faf5ff",
+              100: "#f3e8ff",
+              200: "#e9d5ff",
+              300: "#d8b4fe",
+              400: "#c084fc",
+              500: "#a855f7",
+              600: "#9333ea",
+              700: "#7e22ce",
+              800: "#6b21a8",
+              900: "#581c87",
+              950: "#3b0764",
+            },
+            clinic: {
+              gold: "#c5a880",
+              dark: "#0c0a12",
+              surface: "#161224",
+              border: "#27203d"
+            }
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
+            serif: ["Newsreader", "Georgia", "serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS & JS for Interactive Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Physician",
+        "@id": "https://www.psiquiatraemcampinas.com/#physician",
+        "name": "Dr. Humberto Calicchio",
+        "jobTitle": "Médico Psiquiatra e Psicanalista",
+        "alumniOf": "Faculdade de Ciências Médicas da Universidade Estadual de Campinas (UNICAMP)",
+        "identifier": [
+          { "@type": "PropertyValue", "name": "CRM-SP", "value": "100468" },
+          { "@type": "PropertyValue", "name": "RQE", "value": "31774" }
+        ],
+        "telephone": "+5519982505777",
+        "email": "calicchio@hotmail.com"
+      },
+      {
+        "@type": ["MedicalClinic", "LocalBusiness"],
+        "@id": "https://www.psiquiatraemcampinas.com/#clinic",
+        "name": "Consultório Dr. Humberto Calicchio — Psiquiatria & Psicanálise em Campinas",
+        "url": "https://www.psiquiatraemcampinas.com",
+        "telephone": "+5519982505777",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rua Clóvis Beviláqua, 243, Sala 06 - Edifício Prime Office Plaza",
+          "addressLocality": "Campinas",
+          "addressRegion": "SP",
+          "postalCode": "13073-021",
+          "addressCountry": "BR"
+        }
+      }
+    ]
+  }
+  </script>
+<script src="/_aistudio-iframe.js?v=2c34bde1"></script></head>
+<body class="bg-clinic-dark text-slate-100 antialiased selection:bg-purple-700 selection:text-white font-sans">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-brand-950 border-b border-brand-900/60 py-2.5 px-4 text-center text-xs text-brand-200">
+    <div class="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Consultório de Psiquiatria & Psicanálise • <strong>CRM-SP 100468 | RQE 31774</strong></span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-300">
+        <span>📍 Prime Office Plaza — Guanabara, Campinas</span>
+        <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="text-brand-300 hover:text-white font-medium transition flex items-center gap-1">
+          WhatsApp: (19) 98250-5777 ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-40 bg-clinic-dark/90 backdrop-blur-md border-b border-clinic-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex flex-col">
+        <span class="text-xl font-bold tracking-tight text-white font-serif">Dr. Humberto Calicchio</span>
+        <span class="text-xs uppercase tracking-wider text-brand-300 font-semibold">Psiquiatria Clínica & Psicanálise • UNICAMP</span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300 font-medium">
+        <a href="#consultorio" class="hover:text-brand-300 transition">O Consultório</a>
+        <a href="#especialidades" class="hover:text-brand-300 transition">Especialidades</a>
+        <a href="#sobre" class="hover:text-brand-300 transition">Dr. Humberto</a>
+        <a href="#consultas" class="hover:text-brand-300 transition">Consultas & Reembolso</a>
+        <a href="#checklist" class="hover:text-brand-300 transition">Checklist</a>
+        <a href="#localizacao" class="hover:text-brand-300 transition">Localização</a>
+      </nav>
+
+      <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide uppercase shadow-lg shadow-purple-900/30 transition transform hover:-translate-y-0.5">
+        Agendar Consulta
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden pt-16 pb-24 border-b border-clinic-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-900/40 border border-brand-700/50 text-brand-200 text-xs font-medium">
+            <span>✨</span>
+            <span>Atendimento Médico Humanizado & Singular</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-medium leading-[1.15] text-white">
+            Medicina da mente com escuta profunda e fundamentação ética.
+          </h1>
+
+          <p class="text-lg text-slate-300 font-light leading-relaxed max-w-2xl">
+            Consultório particular especializado em Psiquiatria Clínica Integrativa e Psicanálise contemporânea no Edifício Prime Office Plaza, em Campinas. Consultas aprofundadas de <strong class="text-white font-medium">90 minutos</strong> com respeito ao tempo de cada história.
+          </p>
+
+          <div class="pt-2 flex flex-wrap gap-4 items-center">
+            <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-7 py-3.5 rounded-xl font-semibold text-sm shadow-xl shadow-emerald-950/50 transition flex items-center gap-2.5">
+              <span>💬 Agendar Consulta no WhatsApp</span>
+            </a>
+            <a href="#consultas" class="bg-clinic-surface hover:bg-slate-800 text-slate-200 border border-clinic-border px-6 py-3.5 rounded-xl font-medium text-sm transition">
+              Saiba como funciona
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-clinic-border text-center sm:text-left">
+            <div>
+              <div class="text-2xl font-bold font-serif text-white">90 min</div>
+              <div class="text-xs text-slate-400 mt-1">Duração da primeira consulta diagnóstica</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold font-serif text-white">UNICAMP</div>
+              <div class="text-xs text-slate-400 mt-1">Graduação e Residência em Psiquiatria</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold font-serif text-white">Guanabara</div>
+              <div class="text-xs text-slate-400 mt-1">Ed. Prime Office Plaza com Valet</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="relative rounded-2xl overflow-hidden border border-clinic-border bg-clinic-surface shadow-2xl p-2">
+            <img src="/recepcao-pe-direito-triplo.webp" onerror="this.src='https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80'" alt="Consultório Dr. Humberto Calicchio" class="w-full h-80 object-cover rounded-xl">
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-brand-300 uppercase tracking-wider">Edifício Prime Office Plaza</span>
+                <span class="text-xs text-emerald-400 font-medium">● Consultório Ativo</span>
+              </div>
+              <p class="text-sm text-slate-300">
+                Ambiente planejado com privacidade acústica absoluta, iluminação circadiana acolhedora, divã contemporâneo e vista para jardim de inverno.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Diferenciais / Pilares da Prática Clínica -->
+  <section id="consultorio" class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs uppercase font-semibold text-brand-400 tracking-widest mb-3">Compromisso Terapêutico</h2>
+        <h3 class="text-3xl sm:text-4xl font-serif font-medium text-white">Uma prática médica fundamentada no respeito à singularidade do sofrimento.</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl relative">
+          <div class="w-12 h-12 rounded-xl bg-purple-900/40 border border-purple-700/40 flex items-center justify-center text-xl mb-6">⏱️</div>
+          <h4 class="text-lg font-bold text-white mb-3">Consultas de 90 Minutos</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Sem pressa e sem consultas aceleradas de convênio. Um tempo clínico estendido para compreender o contexto biológico, familiar, emocional e profissional de cada paciente.
+          </p>
+        </div>
+
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl relative">
+          <div class="w-12 h-12 rounded-xl bg-purple-900/40 border border-purple-700/40 flex items-center justify-center text-xl mb-6">🧠</div>
+          <h4 class="text-lg font-bold text-white mb-3">Psiquiatria & Psicanálise</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Integração harmônica entre a psicofarmacologia moderna (com uso racional e criterioso de medicações) e a escuta psicanalítica de orientação winnicottiana e freudiana.
+          </p>
+        </div>
+
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl relative">
+          <div class="w-12 h-12 rounded-xl bg-purple-900/40 border border-purple-700/40 flex items-center justify-center text-xl mb-6">🛡️</div>
+          <h4 class="text-lg font-bold text-white mb-3">Privacidade & Reembolso</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Consultório estritamente particular. Emissão de Nota Fiscal Eletrônica com CRM e RQE para pedido de reembolso junto aos planos de saúde (livre escolha) e dedução no IRPF.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Especialidades -->
+  <section id="especialidades" class="py-20 border-b border-clinic-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-14">
+        <h2 class="text-xs uppercase font-semibold text-brand-400 tracking-widest mb-3">Áreas de Atuação Especializada</h2>
+        <h3 class="text-3xl font-serif font-medium text-white">Cuidado integral para quadros clínicos complexos em adultos e idosos.</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
+          <h4 class="text-white font-semibold text-base mb-2">Transtornos de Ansiedade & Pânico</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Diagnóstico diferencial para crise de pânico, ansiedade generalizada (TAG), fobias específicas e agorafobia, com remissão de sintomas e recuperação da estabilidade.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
+          <h4 class="text-white font-semibold text-base mb-2">Depressão & Transtornos do Humor</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Abordagem longitudinal para episódios depressivos, distimia e transtorno afetivo bipolar, visando restauração da vitalidade, sono e funcionalidade.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
+          <h4 class="text-white font-semibold text-base mb-2">Avaliação de TEA no Adulto</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Investigação diagnóstica do Transtorno do Espectro Autista em adultos, identificando sobrecarga sensorial, masking social e necessidade de adaptação de rotina.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
+          <h4 class="text-white font-semibold text-base mb-2">TDAH no Adulto</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Avaliação clínica criteriosa de desatenção crônica, hiperatividade e impulsividade com impacto na carreira profissional e na vida relacional.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
+          <h4 class="text-white font-semibold text-base mb-2">Transtorno Obsessivo-Compulsivo (TOC)</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Tratamento de pensamentos intrusivos, rituais compulsivos e ruminações obsessivas através de protocolos psicofarmacológicos baseados em evidências.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-xl bg-clinic-surface border border-clinic-border hover:border-brand-500/50 transition">
+          <h4 class="text-white font-semibold text-base mb-2">Psicanálise Clínica & Psicoterapia</h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Sessões regulares em divã ou poltrona analítica para elaboração de lutos, conflitos inconscientes, angústia existencial e reencontro consigo mesmo.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre o Dr. Humberto Calicchio -->
+  <section id="sobre" class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl overflow-hidden border border-clinic-border bg-clinic-surface p-2 shadow-xl">
+            <img src="/assets/dr-humberto-calicchio.jpeg" onerror="this.src='https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=80'" alt="Dr. Humberto Calicchio" class="w-full h-96 object-cover rounded-xl">
+            <div class="p-4 text-center">
+              <div class="text-base font-bold text-white font-serif">Dr. Humberto Calicchio</div>
+              <div class="text-xs text-brand-300 font-semibold mt-1">CRM-SP 100468 • RQE 31774</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6">
+          <h2 class="text-xs uppercase font-semibold text-brand-400 tracking-widest">Trajetória Acadêmica e Médica</h2>
+          <h3 class="text-3xl sm:text-4xl font-serif font-medium text-white">Formação sólida pela UNICAMP aliada à tradição psicanalítica.</h3>
+          
+          <div class="text-slate-300 text-sm sm:text-base leading-relaxed space-y-4">
+            <p>
+              Graduado em Medicina e com Residência Médica em Psiquiatria concluída na renomada <strong class="text-white">Faculdade de Ciências Médicas da Universidade Estadual de Campinas (UNICAMP)</strong>.
+            </p>
+            <p>
+              Possui Registro de Qualificação de Especialista (RQE 31774) junto ao CREMESP e Associação Médica Brasileira. Atua em consultório próprio em Campinas há mais de duas décadas, atendendo pacientes que buscam um olhar humanizado, atento e científico.
+            </p>
+            <p>
+              Sua metodologia prioriza o paciente em sua integridade, recusando diagnósticos apressados ou prescrições mecânicas, cultivando a confiança necessária para transformações reais.
+            </p>
+          </div>
+
+          <div class="pt-4 flex flex-wrap gap-3">
+            <span class="px-3.5 py-1.5 rounded-lg bg-clinic-surface border border-clinic-border text-xs text-slate-300">🎓 FCM UNICAMP</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-clinic-surface border border-clinic-border text-xs text-slate-300">📜 CRM-SP 100468</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-clinic-surface border border-clinic-border text-xs text-slate-300">⭐ RQE 31774</span>
+            <span class="px-3.5 py-1.5 rounded-lg bg-clinic-surface border border-clinic-border text-xs text-slate-300">🛋️ Psicanálise Winnicottiana</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Consultas & Valores & Reembolso -->
+  <section id="consultas" class="py-20 border-b border-clinic-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs uppercase font-semibold text-brand-400 tracking-widest mb-3">Transparência & Acolhimento</h2>
+        <h3 class="text-3xl font-serif font-medium text-white">Como funcionam as consultas e o processo de reembolso</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-brand-900/40 text-brand-300 text-xs font-semibold uppercase mb-4">Primeira Avaliação</div>
+            <h4 class="text-2xl font-serif font-bold text-white mb-2">Consulta Diagnóstica Inicial</h4>
+            <div class="text-3xl font-bold text-white my-4 font-serif">R$ 900,00 <span class="text-sm font-normal text-slate-400">/ 90 minutos</span></div>
+            <ul class="space-y-3 text-sm text-slate-300 mb-6">
+              <li class="flex items-start gap-2"><span>✓</span> <span>Anamnese psiquiátrica minuciosa e escuta do histórico biográfico.</span></li>
+              <li class="flex items-start gap-2"><span>✓</span> <span>Avaliação de exames complementares e medicações em uso.</span></li>
+              <li class="flex items-start gap-2"><span>✓</span> <span>Plano terapêutico individualizado (psicofármacos e/ou psicanálise).</span></li>
+              <li class="flex items-start gap-2"><span>✓</span> <span>Emissão de Nota Fiscal Médica oficial com CRM e RQE para reembolso.</span></li>
+            </ul>
+          </div>
+          <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20minha%20primeira%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="w-full text-center bg-brand-700 hover:bg-brand-600 text-white py-3.5 rounded-xl font-semibold text-sm transition">
+            Agendar no WhatsApp ↗
+          </a>
+        </div>
+
+        <div class="bg-clinic-surface border border-clinic-border p-8 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold uppercase mb-4">Segurança & Direitos</div>
+            <h4 class="text-2xl font-serif font-bold text-white mb-2">Reembolso com Planos de Saúde</h4>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              A maioria dos planos de saúde (Bradesco Saúde, SulAmérica, Amil, Care Plus, Porto Seguro, Omint, Unimed) prevê a modalidade de <strong class="text-white">Livre Escolha</strong>, permitindo que você consulte um médico particular de sua confiança e seja reembolsado.
+            </p>
+            <div class="p-4 rounded-xl bg-clinic-dark border border-clinic-border mb-6">
+              <div class="text-xs font-semibold text-brand-300 mb-1">Dica Útil:</div>
+              <p class="text-xs text-slate-400">
+                Ligue previamente para a central do seu convênio ou use o aplicativo para consultar a tabela de reembolso para "Consulta Psiquiátrica Particular (código CBHPM)".
+              </p>
+            </div>
+          </div>
+          <a href="#checklist" class="w-full text-center bg-clinic-dark hover:bg-slate-800 text-slate-200 border border-clinic-border py-3.5 rounded-xl font-semibold text-sm transition">
+            Ver Checklist de Reembolso
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Checklist Interativo -->
+  <section id="checklist" class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-xs uppercase font-semibold text-brand-400 tracking-widest mb-3">Preparação para sua Consulta</h2>
+        <h3 class="text-3xl font-serif font-medium text-white">Checklist do Paciente</h3>
+        <p class="text-sm text-slate-300 mt-2">Marque os itens abaixo para se organizar para o seu primeiro atendimento:</p>
+      </div>
+
+      <div class="bg-clinic-surface border border-clinic-border rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
+        <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-clinic-dark transition cursor-pointer">
+          <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-700 text-purple-600 focus:ring-purple-500 bg-slate-900">
+          <span class="text-sm text-slate-200">
+            <strong>Lista de Medicações Atuais:</strong> Anote os nomes de todos os remédios que você toma diariamente (inclusive doses e horários).
+          </span>
+        </label>
+
+        <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-clinic-dark transition cursor-pointer">
+          <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-700 text-purple-600 focus:ring-purple-500 bg-slate-900">
+          <span class="text-sm text-slate-200">
+            <strong>Exames Recentes:</strong> Traga os últimos exames de sangue (hemograma, tireoide - TSH/T4L, vitamina B12, vitamina D) e laudos anteriores.
+          </span>
+        </label>
+
+        <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-clinic-dark transition cursor-pointer">
+          <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-700 text-purple-600 focus:ring-purple-500 bg-slate-900">
+          <span class="text-sm text-slate-200">
+            <strong>Histórico de Tratamentos Passados:</strong> Remédios que já tomou no passado, motivos de interrupção ou efeitos colaterais sentidos.
+          </span>
+        </label>
+
+        <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-clinic-dark transition cursor-pointer">
+          <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-700 text-purple-600 focus:ring-purple-500 bg-slate-900">
+          <span class="text-sm text-slate-200">
+            <strong>Principais Queixas e Dúvidas:</strong> Anote no bloco de notas do celular o que mais tem incomodado você nos últimos meses.
+          </span>
+        </label>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Localização & Mapa -->
+  <section id="localizacao" class="py-20 border-b border-clinic-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5 space-y-6">
+          <h2 class="text-xs uppercase font-semibold text-brand-400 tracking-widest">Endereço & Acesso</h2>
+          <h3 class="text-3xl font-serif font-medium text-white">Consultório no Bairro Guanabara, Campinas</h3>
+          
+          <div class="bg-clinic-surface border border-clinic-border p-6 rounded-2xl space-y-4">
+            <div>
+              <div class="text-xs font-semibold text-brand-300 uppercase tracking-wide">Endereço Oficial</div>
+              <p class="text-base text-white font-medium mt-1">Edifício Prime Office Plaza</p>
+              <p class="text-sm text-slate-300">Rua Clóvis Beviláqua, 243, Sala 06</p>
+              <p class="text-sm text-slate-300">Bairro Guanabara / Jardim Brasil — Campinas - SP</p>
+              <p class="text-xs text-slate-400 mt-1">CEP: 13073-021 (Próximo à Universidade Mackenzie e Diagmed)</p>
+            </div>
+
+            <div class="pt-3 border-t border-clinic-border text-sm text-slate-300 space-y-2">
+              <p>🚗 <strong>Estacionamento:</strong> Serviço de manobrista (valet) próprio no subsolo do edifício.</p>
+              <p>♿ <strong>Acessibilidade:</strong> Rampas de acesso, elevadores amplos e banheiros adaptados para PCD.</p>
+              <p>🕒 <strong>Dias de Atendimento:</strong> Segundas, Terças e Quintas-feiras, das 08h às 19h (hora marcada).</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <a href="https://maps.google.com/?q=Rua+Cl%C3%B3vis+Bevil%C3%A1qua%2C+243%2C+Campinas+-+SP" target="_blank" class="flex-1 text-center bg-clinic-surface hover:bg-slate-800 text-white border border-clinic-border py-3 rounded-xl text-xs font-semibold transition">
+              Abrir no Google Maps ↗
+            </a>
+            <a href="https://waze.com/ul?q=Rua+Cl%C3%B3vis+Bevil%C3%A1qua+243+Campinas" target="_blank" class="flex-1 text-center bg-clinic-surface hover:bg-slate-800 text-white border border-clinic-border py-3 rounded-xl text-xs font-semibold transition">
+              Abrir no Waze ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="rounded-2xl overflow-hidden border border-clinic-border bg-clinic-surface shadow-2xl h-96 relative" id="map"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Perguntas Frequentes -->
+  <section class="py-20 bg-clinic-surface/50 border-b border-clinic-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-xs uppercase font-semibold text-brand-400 tracking-widest mb-3">Tire suas dúvidas</h2>
+        <h3 class="text-3xl font-serif font-medium text-white">Perguntas Frequentes sobre o Atendimento</h3>
+      </div>
+
+      <div class="space-y-4">
+        
+        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-white text-base">
+            <span>O Dr. Humberto atende diretamente por algum convênio médico?</span>
+            <span class="transition group-open:rotate-180 text-brand-400">▼</span>
+          </summary>
+          <p class="mt-4 text-sm text-slate-300 leading-relaxed border-t border-clinic-border pt-4">
+            Não. Os atendimentos são exclusivamente particulares para garantir consultas de 90 minutos com total tempo de dedicação e sem restrições das operadoras de saúde. É fornecida Nota Fiscal oficial com CRM e RQE para que você solicite o reembolso.
+          </p>
+        </details>
+
+        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-white text-base">
+            <span>Como funciona a teleconsulta para pacientes de outras cidades?</span>
+            <span class="transition group-open:rotate-180 text-brand-400">▼</span>
+          </summary>
+          <p class="mt-4 text-sm text-slate-300 leading-relaxed border-t border-clinic-border pt-4">
+            A telemedicina psiquiátrica é autorizada pelo CFM e realizada por link seguro de videoconferência. As receitas e atestados médicos são emitidos com assinatura digital ICP-Brasil e enviados por SMS/e-mail com validade em qualquer farmácia do Brasil.
+          </p>
+        </details>
+
+        <details class="group bg-clinic-surface border border-clinic-border rounded-xl p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-white text-base">
+            <span>Como faço para agendar um horário?</span>
+            <span class="transition group-open:rotate-180 text-brand-400">▼</span>
+          </summary>
+          <p class="mt-4 text-sm text-slate-300 leading-relaxed border-t border-clinic-border pt-4">
+            O agendamento é feito diretamente pelo WhatsApp oficial <strong>(19) 98250-5777</strong> com a secretaria do consultório, que apresentará os dias e horários disponíveis para sua comodidade.
+          </p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-clinic-dark text-slate-400 text-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-clinic-border">
+        <div>
+          <p class="text-sm font-serif font-bold text-white">Dr. Humberto Calicchio</p>
+          <p class="mt-1">Médico Psiquiatra e Psicanalista • CRM-SP 100468 | RQE 31774</p>
+          <p class="text-slate-500">Graduação e Residência em Psiquiatria pela UNICAMP</p>
+        </div>
+        <div class="text-right space-y-1">
+          <p class="text-white font-medium">Edifício Prime Office Plaza — Sala 06</p>
+          <p>Rua Clóvis Beviláqua, 243 — Bairro Guanabara, Campinas - SP</p>
+          <p>WhatsApp / Agendamento: (19) 98250-5777</p>
+        </div>
+      </div>
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
+        <p>© 2026 Dr. Humberto Calicchio. Todos os direitos reservados. Em estrita conformidade com as normas éticas do CFM e CREMESP.</p>
+        <p>Aviso: Este site tem caráter exclusivamente informativo e não substitui uma avaliação médica individualizada.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio." target="_blank" class="flex items-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-white px-5 py-3.5 rounded-full shadow-2xl shadow-emerald-950 font-semibold text-sm transition transform hover:scale-105">
+      <span class="text-xl">💬</span>
+      <span class="hidden sm:inline">Agendar no WhatsApp</span>
+    </a>
+  </div>
+
+  <!-- Initialize Leaflet Map -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      try {
+        var map = L.map("map").setView([-22.8874, -47.0694], 16);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "&copy; OpenStreetMap contributors"
+        }).addTo(map);
+
+        var marker = L.marker([-22.8874, -47.0694]).addTo(map);
+        marker.bindPopup("<strong>Dr. Humberto Calicchio</strong><br>Edifício Prime Office Plaza - Sala 06<br>Rua Clóvis Beviláqua, 243").openPopup();
+      } catch (e) {
+        console.warn("Leaflet error:", e);
+      }
+    });
+  </script>
+
+</body>
+</html>
