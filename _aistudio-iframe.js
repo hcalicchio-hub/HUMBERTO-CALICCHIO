@@ -1074,7 +1074,8 @@
         try {
           const selector = event.data.selector;
           const dataUrl = event.data.dataUrl;
-          if (selector && dataUrl) {
+          if (selector && typeof dataUrl === 'string' &&
+              /^data:image\/(?:png|jpeg|webp|gif);base64,[A-Za-z0-9+/]+={0,2}$/i.test(dataUrl)) {
             const element = document.querySelector(selector);
             if (element) {
               const updateImg = (img) => {
