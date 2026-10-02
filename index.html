@@ -2,17 +2,22 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <!-- Redirecionamento Automático para carregar todas as fotos do seu GitHub -->
+    
+    <!-- Carregamento Inteligente: garante 100% das fotos sem espaços vazios -->
     <script>
       (function() {
+        var CLOUD_CDN = "https://ais-dev-h7653eiy5nluj23ju5mchp-228520234583.us-east1.run.app";
+
         var origDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
         if (origDescriptor && origDescriptor.set) {
           Object.defineProperty(HTMLImageElement.prototype, "src", {
             set: function(val) {
-              if (typeof val === "string" && val.startsWith("/assets/")) {
-                val = "/site-oficial-dr-humberto" + val;
-              } else if (typeof val === "string" && val.includes(window.location.origin + "/assets/")) {
-                val = val.replace(window.location.origin + "/assets/", window.location.origin + "/site-oficial-dr-humberto/assets/");
+              if (typeof val === "string") {
+                if (val.startsWith("/assets/")) {
+                  val = "/site-oficial-dr-humberto" + val;
+                } else if (val.includes(window.location.origin + "/assets/")) {
+                  val = val.replace(window.location.origin + "/assets/", window.location.origin + "/site-oficial-dr-humberto/assets/");
+                }
               }
               return origDescriptor.set.call(this, val);
             },
@@ -20,11 +25,24 @@
             configurable: true
           });
         }
+
         window.addEventListener("error", function(e) {
           if (e.target && e.target.tagName === "IMG") {
             var cur = e.target.src || "";
+            // Passo 1: tenta na pasta do GitHub
             if (cur.includes("/assets/") && !cur.includes("/site-oficial-dr-humberto/assets/")) {
               e.target.src = cur.replace("/assets/", "/site-oficial-dr-humberto/assets/");
+              return;
+            }
+            // Passo 2: se a foto estiver ausente no GitHub (como o divã), carrega da nuvem
+            if (!e.target.dataset.cloudFallback) {
+              e.target.dataset.cloudFallback = "1";
+              var filename = cur.split("/").pop();
+              if (cur.includes("consultorio/")) {
+                e.target.src = CLOUD_CDN + "/assets/consultorio/" + filename;
+              } else {
+                e.target.src = CLOUD_CDN + "/assets/" + filename;
+              }
             }
           }
         }, true);
