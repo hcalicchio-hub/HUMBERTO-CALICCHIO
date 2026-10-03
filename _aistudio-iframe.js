@@ -1074,17 +1074,35 @@
         try {
           const selector = event.data.selector;
           const dataUrl = event.data.dataUrl;
-          if (selector && dataUrl) {
+          const imageMatch = typeof dataUrl === 'string' &&
+              /^data:image\/(png|jpeg|webp|gif);base64,([A-Za-z0-9+/]+={0,2})$/i.exec(dataUrl);
+          if (selector && imageMatch) {
             const element = document.querySelector(selector);
             if (element) {
               const updateImg = (img) => {
+                const imageTypes = {
+                  gif: 'image/gif',
+                  jpeg: 'image/jpeg',
+                  png: 'image/png',
+                  webp: 'image/webp',
+                };
+                const imageBytes = Uint8Array.from(
+                    atob(imageMatch[2]),
+                    (character) => character.charCodeAt(0));
+                const imageUrl = URL.createObjectURL(new Blob([imageBytes], {
+                  type: imageTypes[imageMatch[1].toLowerCase()],
+                }));
                 const originalTransition = img.style.transition;
                 const originalOpacity = img.style.opacity;
                 img.style.transition = 'opacity 0.15s ease';
                 img.style.opacity = '0.3';
                 setTimeout(() => {
                   img.srcset = '';
-                  img.src = dataUrl;
+                  img.src = imageUrl;
+                  img.addEventListener(
+                      'load', () => URL.revokeObjectURL(imageUrl), {once: true});
+                  img.addEventListener(
+                      'error', () => URL.revokeObjectURL(imageUrl), {once: true});
                   setTimeout(() => {
                     img.style.opacity = originalOpacity || '1';
                     setTimeout(() => {
