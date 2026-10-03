@@ -174,7 +174,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400..500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Animação Suave de Fade-In no Scroll das Seções -->
-    <style>section.scroll-fade-init{opacity:0;will-change:opacity, transform;transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);transform:translateY(28px)}section.scroll-fade-in{opacity:1!important;transform:translateY(0)!important}@media (prefers-reduced-motion:reduce){section.scroll-fade-init{opacity:1!important;transition:none!important;transform:none!important}}</style>
+    <style>
+      /* Estilos para animação fluida de aparição ao rolar a página */
+      section.scroll-fade-init {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      section.scroll-fade-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        section.scroll-fade-init {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
+      /* Correção Definitiva para Mobile (Chrome e Safari no iPhone/Android):
+         Evita colisão entre o botão flutuante e a barra inferior de navegação */
+      @media (max-width: 640px) {
+        #chat-trigger-container,
+        #floating-whatsapp-booking-button {
+          display: none !important;
+        }
+        #mobile-sticky-action-bar {
+          bottom: max(0.85rem, env(safe-area-inset-bottom, 0.85rem)) !important;
+          z-index: 9999 !important;
+        }
+      }
+    </style>
     <script>
       (function() {
         if (typeof window === 'undefined') return;
@@ -527,7 +558,7 @@
               "name": "Onde fica localizado o consultório em Campinas?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "O consultório está localizado no Edifício Prime Office Plaza, na Rua Clóvis Bevilacqua, 243, Sala 06, no tradicional bairro Jardim Brasil / Guanabara em Campinas - SP (a cerca de 300 metros da Universidade Presbiteriana Mackenzie e próximo ao Diagmed), com serviço de manobrista no subsolo e total acessibilidade."
+                "text": "O consultório está localizado no Edifício Prime Office Plaza, na Rua Clóvis Bevilacqua, 243, Sala 06, no tradicional bairro Jardim Brasil / Guanabara em Campinas - SP (a cerca de 300 metros da Universidade Presbiteriana Mackenzie e próximo ao Diagmed), com vagas de estacionamento na frente do prédio e total acessibilidade."
               }
             },
             {
@@ -540,10 +571,10 @@
             },
             {
               "@type": "Question",
-              "name": "O consultório oferece estacionamento com manobrista (valet)?",
+              "name": "O consultório possui vagas de estacionamento?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Sim, o Edifício Prime Office Plaza conta com estacionamento privativo coberto no subsolo e serviço profissional de manobrista (valet), além de portaria com controle biométrico 24 horas e elevadores com acessibilidade para pessoas com mobilidade reduzida."
+                "text": "Sim, o Edifício Prime Office Plaza conta com 4 vagas na frente do prédio destinadas a pacientes (sem manobrista). Além disso, como o consultório fica localizado exatamente em frente a uma praça com extensão muito ampla, há grande facilidade e tranquilidade para deixar o carro estacionado na própria rua, além de segurança no edifício (das 08h às 21h) e elevadores modernos com acessibilidade total."
               }
             }
           ]
@@ -575,84 +606,13 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-v16.js?v=16"></script>
+    <script type="module" crossorigin src="/assets/index-v17.js?v=17"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-ZzAGmC6s.css">
-    
   </head>
   <body class="bg-[#08060c] text-[#f5f5f7] antialiased selection:bg-purple-700 selection:text-white">
     <div id="root">
       <!-- Conteúdo Semântico Pré-Renderizado para Indexação Imediata pelo Googlebot e Mecanismos de Busca -->
       <header style="max-width: 1200px; margin: 0 auto; padding: 20px 16px;">
-        <div style="background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%); border: 1px solid #7e22ce; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
-          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #22c55e;"></span>
-                <span style="font-size: 15px; font-weight: 700; color: #ffffff;">Novo Website do Dr. Humberto Calicchio — Pronto para Publicação</span>
-              </div>
-              <p style="font-size: 13px; color: #cbd5e1; margin: 4px 0 0 0;">
-                O domínio <code>www.psiquiatraemcampinas.com</code> ainda está apontando para o Wix antigo no DNS. Para substituir o Wix por este site novo, baixe o código completo abaixo.
-              </p>
-            </div>
-            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-              <a href="/site-pronto-para-hospedagem.zip" download="site-pronto-para-hospedagem.zip" onclick="downloadHostingZip(event)" id="btn-download-hospedagem" style="background: #16a34a; hover:bg-emerald-600; color: #ffffff; padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(22, 163, 74, 0.4); cursor: pointer;">
-                📦 Baixar Arquivos da Hospedagem (.ZIP)
-              </a>
-              <a href="/projeto-completo.zip" download="projeto-completo.zip" onclick="downloadCompleteZip(event)" style="background: #9333ea; hover:bg-purple-700; color: #ffffff; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(147, 51, 234, 0.4); cursor: pointer;">
-                💻 Código Completo (.ZIP)
-              </a>
-              <a href="/checklist-consulta.html" target="_blank" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none;">
-                📄 Checklist de Consulta
-              </a>
-            </div>
-            <script>
-              function downloadHostingZip(e) {
-                if (e) e.preventDefault();
-                const btn = document.getElementById("btn-download-hospedagem");
-                if (btn) btn.innerHTML = "⏳ Baixando pacote...";
-                fetch("/site-pronto-para-hospedagem.zip")
-                  .then(r => {
-                    if (!r.ok) throw new Error("Status " + r.status);
-                    return r.blob();
-                  })
-                  .then(blob => {
-                    const u = URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = u;
-                    a.download = "site-pronto-para-hospedagem.zip";
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(u);
-                    if (btn) btn.innerHTML = "✅ Download Pronto na sua pasta!";
-                    setTimeout(() => { if (btn) btn.innerHTML = "📦 Baixar Arquivos da Hospedagem (.ZIP)"; }, 4000);
-                  })
-                  .catch(err => {
-                    console.error("Falha no download via blob, tentando direto:", err);
-                    window.location.href = "/site-pronto-para-hospedagem.zip";
-                  });
-              }
-              function downloadCompleteZip(e) {
-                if (e) e.preventDefault();
-                fetch("/projeto-completo.zip")
-                  .then(r => r.blob())
-                  .then(blob => {
-                    const u = URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = u;
-                    a.download = "projeto-completo.zip";
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(u);
-                  })
-                  .catch(() => {
-                    window.location.href = "/projeto-completo.zip";
-                  });
-              }
-            </script>
-          </div>
-        </div>
         <nav aria-label="Navegação do Consultório">
           <p style="font-size: 14px; margin: 0; color: #94a3b8;">
             <strong>Dr. Humberto Calicchio</strong> — CRM-SP 100468 | RQE 31774
@@ -665,6 +625,47 @@
 
       <main style="max-width: 1200px; margin: 0 auto; padding: 0 16px 40px 16px;">
         <article>
+          <!-- Card de Apresentação Oficial do Disclaimer do WhatsApp (Ético e Legal) -->
+          <div style="background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%); border: 1.5px solid #38bdf8; border-radius: 14px; padding: 22px 24px; margin-bottom: 28px; box-shadow: 0 8px 30px rgba(14, 165, 233, 0.15);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 24px;">🛡️</span>
+                <div>
+                  <h2 style="font-size: 17px; font-weight: 700; color: #38bdf8; margin: 0;">Disclaimer Oficial de Atendimento & Sigilo do WhatsApp</h2>
+                  <p style="font-size: 12px; color: #94a3b8; margin: 2px 0 0 0;">Configurado no sistema para ser enviado <strong>exclusivamente na 1ª mensagem</strong> de cada paciente (nunca repetido nas seguintes)</p>
+                </div>
+              </div>
+              <span style="background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #4ade80; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.5px;">
+                ● Ativo no WhatsApp
+              </span>
+            </div>
+
+            <div style="background: rgba(0, 0, 0, 0.4); border-left: 4px solid #38bdf8; border-radius: 8px; padding: 16px 18px; margin-bottom: 16px;">
+              <p style="font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.6; color: #f1f5f9; margin: 0; white-space: pre-line;">
+<strong>Olá! Bem-vindo(a) ao canal de atendimento do consultório do Dr. Humberto Calicchio.</strong>
+
+<strong>*Aviso Inicial (Disclaimer de Atendimento):*</strong>
+Você está conversando com a Assistente Virtual (Inteligência Artificial) do consultório. Estou à disposição para responder prontamente a quaisquer dúvidas práticas sobre valores de consulta, duração e visão multifatorial do tratamento, retornos, localização e orientações preparatórias.
+
+No momento do agendamento, entrarão em contato figuras humanas da nossa equipe — geralmente nossa secretária Milena durante a semana, ou o próprio Dr. Humberto (inclusive aos finais de semana).
+
+🔒 <strong>*Para seu resguardo e privacidade legal:*</strong> Este WhatsApp é acessado pela equipe administrativa. Por gentileza, <strong>*não exponha informações médicas íntimas ou confidenciais por aqui*</strong>. Caso queira um contato direto, reservado e estritamente sigiloso com o médico, envie um e-mail para: <strong>calicchio@hotmail.com</strong> (única via de acesso direto e sigiloso com o Dr. Humberto).
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; font-size: 12px; color: #cbd5e1;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+                <strong style="color: #67e8f9;">1. Transparência da IA:</strong> Deixa claro logo de início que o primeiro contato é realizado pela IA para esclarecer dúvidas práticas.
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+                <strong style="color: #a78bfa;">2. Transição Humana:</strong> Explica que o agendamento final é feito pela secretária Milena ou pelo Dr. Humberto.
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;">
+                <strong style="color: #f43f5e;">3. Resguardo e Sigilo Médico:</strong> Orienta a não expor intimidades no WhatsApp compartilhado e dá a via de e-mail confidencial.
+              </div>
+            </div>
+          </div>
+
           <h1 style="font-size: 28px; line-height: 1.3; margin-bottom: 16px; color: #f8fafc;">
             Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468 / RQE 31774
           </h1>
@@ -708,8 +709,16 @@
               E-mail: calicchio@hotmail.com
             </address>
             <p style="font-size: 14px; color: #64748b; margin-top: 8px;">
-              Edifício comercial de alto padrão com serviço de manobrista (valet) no subsolo, acessibilidade completa para PCD e portaria com controle biométrico 24 horas.
-              Atendimento com hora marcada: Segundas, Terças e Quintas-feiras, das 08h às 19h.
+              Edifício comercial com 4 vagas na frente do prédio destinadas a pacientes (sem manobrista), grande facilidade para estacionar na rua ao redor da ampla praça em frente, acessibilidade completa para PCD e segurança das 08h às 21h.
+            </p>
+            <div style="font-size: 14px; color: #e2e8f0; margin-top: 12px; background: rgba(255,255,255,0.03); padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <p style="font-weight: 600; color: #38bdf8; margin-bottom: 6px;">🕒 Horários de Atendimento (com hora marcada):</p>
+              <p style="margin: 4px 0; color: #cbd5e1;">• <strong>Segundas, Terças e Quintas-feiras:</strong> das 08h às 19h</p>
+              <p style="margin: 4px 0; color: #cbd5e1;">• <strong>Sextas-feiras:</strong> 1 sexta ao mês (data definida previamente a cada mês), das 08h às 19h</p>
+              <p style="margin-top: 6px; font-size: 12px; color: #94a3b8; font-style: italic;">Atendimento exclusivamente particular com recibo e Nota Fiscal para reembolso e IRPF.</p>
+            </div>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 10px; line-height: 1.5; font-style: italic;">
+              🔒 <strong>Nota de privacidade:</strong> O WhatsApp do consultório é compartilhado com a equipe de recepção exclusivamente para agendamentos e esclarecimentos administrativos. Por gentileza, não envie detalhes clínicos ou questões sigilosas por este canal. Seus relatos de saúde serão acolhidos com total sigilo médico durante a consulta.
             </p>
           </section>
 
@@ -731,9 +740,10 @@
 
               <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">Como agendar uma consulta presencial ou telemedicina?</h3>
               <p>O agendamento é realizado por contato humano diretamente pelo WhatsApp oficial (19) 98250-5777 ou pelo e-mail calicchio@hotmail.com. Não utilizamos sistemas robotizados de autoagendamento: a recepcionista Milena ou o Dr. Humberto organiza o melhor dia e horário na agenda oficial.</p>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 6px; font-style: italic;">Aviso de sigilo: O WhatsApp é compartilhado com a recepção para agendamentos. Solicitamos a gentileza de não expor informações clínicas ou sigilosas por mensagem.</p>
 
               <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">Onde fica o consultório no Guanabara e tem estacionamento?</h3>
-              <p>O consultório fica no Edifício Prime Office Plaza, na Rua Clóvis Bevilacqua, 243, Sala 06, no Guanabara, Campinas - SP, próximo à Universidade Mackenzie. O edifício oferece estacionamento privativo coberto com serviço de manobrista no subsolo e elevadores acessíveis.</p>
+              <p>O consultório fica no Edifício Prime Office Plaza, na Rua Clóvis Bevilacqua, 243, Sala 06, no Guanabara, Campinas - SP, próximo à Universidade Mackenzie. O edifício dispõe de 4 vagas na frente do prédio para pacientes (sem manobrista). Além disso, como fica localizado exatamente em frente a uma praça com extensão muito ampla, há bastante facilidade e tranquilidade para deixar o carro estacionado na própria rua, com segurança e elevadores acessíveis.</p>
 
               <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">Como funciona a avaliação de TEA e TDAH no adulto?</h3>
               <p>A investigação é realizada a partir de anamnese clínica longitudinal do neurodesenvolvimento, mapeamento de sobrecargas sensoriais, funções executivas e diagnóstico diferencial com ansiedade e depressão, respeitando a singularidade de cada paciente neurodivergente.</p>
