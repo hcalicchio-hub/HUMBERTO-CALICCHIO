@@ -1,0 +1,26 @@
+{
+  "name": "Dr. Humberto Calicchio — Psiquiatria & Psicanálise",
+  "short_name": "Dr. Humberto Calicchio",
+  "description": "Consultório do Dr. Humberto Calicchio em Campinas - SP",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#5a1f5d",
+  "background_color": "#08060c",
+  "display": "standalone",
+  "start_url": "/"
+}
