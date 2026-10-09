@@ -940,5 +940,25 @@ No momento do agendamento, entrarão em contato figuras humanas da nossa equipe 
       </footer>
     </div>
   </body>
-</html>
+</html><script>
+  (function() {
+    function injectCIDButton() {
+      if (document.getElementById('cid-nav-btn')) return;
+      var buttons = Array.from(document.querySelectorAll('button, a'));
+      var portalBtn = buttons.find(function(el) {
+        return el.textContent && el.textContent.trim().includes('Portal');
+      });
+      if (portalBtn && portalBtn.parentNode) {
+        var link = document.createElement('a');
+        link.id = 'cid-nav-btn';
+        link.href = '/cid';
+        link.innerHTML = '🎓 CID-11';
+        link.title = 'Ferramenta e Treinamento CID-10 ⇄ CID-11';
+        link.style.cssText = 'display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #e9d5ff; background: rgba(168, 85, 247, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); padding: 6px 12px; border-radius: 9999px; text-decoration: none; margin-right: 8px; transition: all 0.2s ease;';
+        portalBtn.parentNode.insertBefore(link, portalBtn);
+      }
+    }
+    setInterval(injectCIDButton, 400);
+  })();
+</script>
 
