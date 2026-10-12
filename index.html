@@ -13,7 +13,1144 @@
               self.readyState = 1; // OPEN
               self.send = function() {};
               self.close = function() { self.readyState = 3; };
+              self.addEventListener = function() {};<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <script>
+      // Safe WebSocket stub and error interceptor for Cloud Run / iframe proxy
+      (function() {
+        try {
+          var OrigWS = window.WebSocket;
+          function SafeWS(url, protocols) {
+            var urlStr = String(url || '');
+            if (urlStr.includes('localhost') || urlStr.includes('3000') || urlStr.includes('vite') || urlStr.includes('hmr') || urlStr.startsWith('ws:') || urlStr.startsWith('wss:')) {
+              var self = this;
+              self.readyState = 1; // OPEN
+              self.send = function() {};
+              self.close = function() { self.readyState = 3; };
               self.addEventListener = function() {};
+              self.removeEventListener = function() {};
+              self.onopen = null;
+              self.onmessage = null;
+              self.onerror = null;
+              self.onclose = null;
+              setTimeout(function() {
+                if (typeof self.onopen === 'function') {
+                  try { self.onopen({ type: 'open' }); } catch(e) {}
+                }
+              }, 10);
+              return self;
+            }
+            return new OrigWS(url, protocols);
+          }
+          if (OrigWS) {
+            SafeWS.prototype = OrigWS.prototype;
+            SafeWS.CONNECTING = 0;
+            SafeWS.OPEN = 1;
+            SafeWS.CLOSING = 2;
+            SafeWS.CLOSED = 3;
+            window.WebSocket = SafeWS;
+          }
+        } catch(e) {}
+      })();
+
+      window.addEventListener('unhandledrejection', function(event) {
+        var reason = event.reason;
+        var msg = (reason && (reason.message || (typeof reason === 'string' ? reason : ''))) || '';
+        if (msg.includes('WebSocket') || msg.includes('websocket') || msg.includes('ws://') || msg.includes('wss://')) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }
+      }, true);
+      window.addEventListener('error', function(event) {
+        var msg = (event && (event.message || '')) || '';
+        if (msg.includes('WebSocket') || msg.includes('websocket') || msg.includes('ws://') || msg.includes('wss://')) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }
+      }, true);
+    </script>
+    <script>
+      // Milena AI Chatbot Global Interceptor & Resilience Engine
+      (function() {
+        var BACKEND_URL = 'https://consultorio-dr-humberto.onrender.com/api/chat';
+
+        // Pre-warm Render backend silently on page load
+        try {
+          fetch('https://consultorio-dr-humberto.onrender.com/api/health', { mode: 'no-cors' }).catch(function() {});
+        } catch(e) {}
+
+        var origFetch = window.fetch;
+        window.fetch = async function(resource, init) {
+          var url = typeof resource === 'string' ? resource : (resource && resource.url ? resource.url : '');
+          
+          if (typeof url === 'string' && (url.includes('/api/chat') || url.endsWith('/api/chat'))) {
+            var targetUrl = (window.location.hostname.includes('render.com') || window.location.hostname === 'localhost')
+              ? '/api/chat'
+              : BACKEND_URL;
+
+            // Attempt backend call with a fast 2.2-second timeout controller
+            var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+            var timeoutId = null;
+            var newInit = Object.assign({}, init);
+            if (controller) {
+              newInit.signal = controller.signal;
+              timeoutId = setTimeout(function() {
+                try { controller.abort(); } catch(e) {}
+              }, 2200);
+            }
+
+            try {
+              var response = await origFetch(targetUrl, newInit);
+              if (timeoutId) clearTimeout(timeoutId);
+              if (response && response.ok) {
+                return response;
+              }
+            } catch (netErr) {
+              if (timeoutId) clearTimeout(timeoutId);
+              console.warn('[Milena AI] Nuvem em standby ou iniciando. Motor autônomo local ativado com resposta instantânea.');
+            }
+
+            // Client-side intelligent autonomous engine (100% resilient offline or online)
+            try {
+              var payload = {};
+              if (init && init.body) {
+                payload = typeof init.body === 'string' ? JSON.parse(init.body) : init.body;
+              }
+              var msgs = payload.messages || [];
+              var lastMsg = payload.message || (msgs.length > 0 ? msgs[msgs.length - 1].content : '');
+              var q = (lastMsg || '').toLowerCase();
+
+              var reply = "Olá! Sou a secretária Milena, assistente virtual do consultório particular do Dr. Humberto Calicchio em Campinas/SP (CRM-SP 100468 / RQE 31774).\n\n" +
+                "O Dr. Humberto realiza a **Primeira Consulta exclusivamente presencial no consultório em Campinas** (com 90 minutos de escuta médica e psicanalítica profunda; atendimentos por telemedicina são estritamente restritos para continuidade e retornos após a avaliação inicial presencial):\n\n" +
+                "💳 **Primeira Consulta (90 minutos):** R$ 900,00 (atendimento exclusivamente particular).\n" +
+                "🧾 **Recibo para Reembolso:** Fornecemos recibo médico detalhado com CRM e RQE para reembolso no seu convênio e dedução no IRPF.\n" +
+                "📅 **Dias de Atendimento:** Segundas, Terças e Quintas-feiras, e em Sextas-feiras pré-agendadas (23/10, 27/11 e 18/12), das 08h às 19h.\n" +
+                "🏢 **Localização:** Edifício Prime Office Plaza (Rua Clóvis Bevilacqua, 243, Sala 06 — Jardim Guanabara, Campinas/SP).\n\n" +
+                "Como posso te ajudar hoje? Deseja informações sobre agendamento, reembolso ou localização?";
+
+              var dynamicOptions = ["Agendar Consulta (90 min)", "Como funciona o Reembolso?", "Localização do Consultório"];
+
+              if (q.includes('preço') || q.includes('preco') || q.includes('valor') || q.includes('quanto custa') || q.includes('honorário') || q.includes('honorario') || q.includes('pagamento') || q.includes('cartão') || q.includes('cartao') || q.includes('pix') || q.includes('90 min') || q.includes('duração') || q.includes('duracao')) {
+                reply = "💳 **Valores e Formas de Pagamento:**\n\n" +
+                  "• **Primeira Consulta (90 minutos):** O investimento é de **R$ 900,00** (atendimento exclusivamente particular).\n" +
+                  "• **Consultas seguintes:** A periodicidade e os honorários são combinados diretamente com o Dr. Humberto após a consulta inicial, de acordo com o plano terapêutico.\n" +
+                  "• **Formas de Pagamento:** Pix, Cartão de Débito, Cartão de Crédito ou Dinheiro.\n" +
+                  "• **Reembolso no Convênio:** Emitimos Nota Fiscal e Recibo Médico oficial com CRM-SP 100468 e RQE 31774 para solicitação de reembolso no seu plano de saúde (Amil, Bradesco, SulAmérica, Unimed, etc.) e declaração no IRPF.\n\n" +
+                  "Qual dia ou período (manhã ou tarde) seria mais conveniente para você?";
+                dynamicOptions = ["Agendar Primeira Consulta", "Dias e Horários Disponíveis", "Como pedir Reembolso"];
+              } else if (q.includes('unimed') || q.includes('convenio') || q.includes('convênio') || q.includes('plano') || q.includes('reembolso') || q.includes('bradesco') || q.includes('sulamerica') || q.includes('amil') || q.includes('notredame') || q.includes('porto seguro') || q.includes('recibo') || q.includes('nota fiscal')) {
+                reply = "🧾 **Convênios e Reembolso Médico:**\n\n" +
+                  "O consultório do Dr. Humberto Calicchio é **exclusivamente particular** (não atendemos diretamente por guias de convênios).\n\n" +
+                  "Contudo, a grande maioria dos planos de saúde oferece a modalidade de **Livre Escolha com Reembolso**:\n" +
+                  "1. Você realiza a consulta e recebe nosso **Recibo Médico oficial com CRM-SP 100468 e RQE 31774** discriminado.\n" +
+                  "2. Você anexa o recibo no aplicativo ou site do seu convênio.\n" +
+                  "3. O plano reembolsa o valor total ou parcial diretamente na sua conta corrente.\n" +
+                  "4. O documento também é 100% dedutível no seu Imposto de Renda (IRPF).\n\n" +
+                  "Deseja verificar os horários para agendamento?";
+                dynamicOptions = ["Ver Dias e Horários", "Valor da Consulta (90 min)", "Falar no WhatsApp"];
+              } else if (q.includes('horário') || q.includes('horario') || q.includes('dias') || q.includes('quando atende') || q.includes('agendar') || q.includes('marcar') || q.includes('agenda') || q.includes('disponibilidade') || q.includes('consulta')) {
+                reply = "📅 **Dias e Horários de Atendimento no Consultório:**\n\n" +
+                  "O Dr. Humberto atende com hora marcada nos seguintes dias:\n" +
+                  "• **Segundas-feiras:** das 08h às 19h\n" +
+                  "• **Terças-feiras:** das 08h às 19h\n" +
+                  "• **Quintas-feiras:** das 08h às 19h\n" +
+                  "• **Sextas-feiras pré-agendadas até o fim do ano:** 23/10, 27/11 e 18/12 (das 08h às 19h)\n" +
+                  "*(O consultório não abre às quartas-feiras para atendimento)*\n\n" +
+                  "Qual desses dias e períodos (manhã ou tarde) melhor se encaixa na sua rotina?";
+                dynamicOptions = ["Segunda-feira", "Terça-feira", "Quinta-feira"];
+              } else if (q.includes('quarta') || q.includes('quarta-feira')) {
+                reply = "O Dr. Humberto **não realiza atendimentos às quartas-feiras**.\n\nOs atendimentos presenciais no consultório acontecem às **Segundas, Terças e Quintas-feiras**, e em **Sextas-feiras selecionadas**, das 08h às 19h.\n\nQual desses outros dias ficaria melhor para você?";
+                dynamicOptions = ["Segunda-feira", "Terça-feira", "Quinta-feira"];
+              } else if (q.includes('endereço') || q.includes('endereco') || q.includes('local') || q.includes('onde fica') || q.includes('como chegar') || q.includes('localização') || q.includes('localizacao') || q.includes('estacionamento') || q.includes('mapa') || q.includes('bairro') || q.includes('guanabara')) {
+                reply = "🏢 **Endereço e Estrutura do Consultório:**\n\n" +
+                  "📍 **Edifício Prime Office Plaza**\n" +
+                  "Rua Clóvis Bevilacqua, 243, Sala 06 — Jardim Guanabara, Campinas/SP (CEP: 13073-021).\n\n" +
+                  "• **Referência:** Próximo à Universidade Presbiteriana Mackenzie e à Avenida Brasil.\n" +
+                  "• **Estacionamento:** O edifício conta com 4 vagas na frente do prédio para pacientes (sem manobrista), além de ser muito fácil e tranquilo estacionar na própria rua arborizada em frente.\n" +
+                  "• **Acessibilidade:** Prédio moderno com portaria, elevadores amplos e acessibilidade completa.";
+                dynamicOptions = ["Como Agendar", "Valores e Formas de Pagamento", "Falar no WhatsApp"];
+              } else if (q.includes('online') || q.includes('telemedicina') || q.includes('teleconsulta') || q.includes('vídeo') || q.includes('video') || q.includes('distância') || q.includes('distancia') || q.includes('outra cidade') || q.includes('exterior')) {
+                reply = "🌐 **Atendimento Presencial e Telemedicina:**\n\n" +
+                  "A **primeira consulta com o Dr. Humberto é realizada exclusivamente de forma presencial** no consultório em Campinas (Edifício Prime Office Plaza, Guanabara), com 90 minutos de avaliação diagnóstica e psicanalítica profunda.\n\n" +
+                  "• **Continuidade por Telemedicina:** A modalidade online é reservada para consultas de retorno e acompanhamento, combinada diretamente com o médico após a avaliação inicial presencial.\n" +
+                  "• **Receita Digital:** Prescrições com certificado digital ICP-Brasil enviadas por SMS/e-mail para farmácias em todo o Brasil.\n" +
+                  "• **Recibo Médico:** Emitido com CRM e RQE para reembolso no convênio e IRPF.";
+                dynamicOptions = ["Agendar Consulta Presencial", "Valores e Pagamento", "Falar no WhatsApp"];
+              } else if (q.includes('especialista') || q.includes('especialidade') || q.includes('subespecialidade') || q.includes('área de atuação') || q.includes('area de atuacao')) {
+                reply = "Olá! O Dr. Humberto Calicchio é médico psiquiatra (formado pela UNICAMP — CRM-SP 100468 / RQE 31774) com subespecialidade médica oficial titulada em **Psicoterapia de Orientação Analítica**.\n\n" +
+                  "O que muitos pacientes buscam como 'especialidade' em certas doenças é, na verdade, plenamente refletido na trajetória dele: são **quase 26 anos de vasta experiência clínica** e estudo aprofundado no tratamento das enfermidades detalhadas em nosso site (como Ansiedade, Pânico, Depressão, Transtorno Bipolar, TOC, investigação de TEA e TDAH no adulto, Insônia e Burnout).\n\n" +
+                  "Deseja orientações sobre a primeira consulta de 90 minutos ou agendamento?";
+                dynamicOptions = ["Agendar Consulta (90 min)", "Valores e Reembolso", "Localização do Consultório"];
+              } else if (q.includes('criança') || q.includes('crianca') || q.includes('adolescente') || q.includes('menor de idade') || q.includes('infantil') || q.includes('idade mínima') || q.includes('idade minima') || q.includes('faixa etária') || q.includes('faixa etaria')) {
+                reply = "👥 **Público Atendido (Exclusivamente Adultos):**\n\n" +
+                  "Informamos que o Dr. Humberto atende **exclusivamente pacientes adultos (maiores de 18 anos)**.\n\n" +
+                  "O consultório não realiza atendimentos a crianças ou adolescentes. Caso necessite de acolhimento infantojuvenil, recomendamos procurar profissionais titulados em Psiquiatria da Infância e da Adolescência ou Neuropediatria.";
+                dynamicOptions = ["Consulta para Adultos (90 min)", "Valores e Reembolso", "Voltar ao Início"];
+              } else if (q.includes('tea') || q.includes('autismo') || q.includes('asperger') || q.includes('espectro')) {
+                reply = "🧩 **Avaliação de TEA (Transtorno do Espectro Autista) no Adulto:**\n\n" +
+                  "Sim, o Dr. Humberto Calicchio realiza avaliação diagnóstica minuciosa, acolhedora e individualizada de Autismo / TEA em adultos, além de transtornos comórbidos.\n\n" +
+                  "A primeira consulta de **90 minutos** permite investigar todo o histórico de neurodesenvolvimento, sensorialidade, comunicação social e máscaras sociais (camouflaging), com laudos técnicos quando indicado.";
+                dynamicOptions = ["Agendar Avaliação TEA", "Valor da Consulta (90 min)", "Localização"];
+              } else if (q.includes('tdah') || q.includes('atenção') || q.includes('atencao') || q.includes('concentração') || q.includes('ritalin') || q.includes('venvanse') || q.includes('hiperat')) {
+                reply = "🧠 **Diagnóstico e Manejo do TDAH no Adulto:**\n\n" +
+                  "O Dr. Humberto Calicchio é especialista na identificação e tratamento do TDAH em adultos. A consulta de 90 minutos investiga a trajetória acadêmica, profissional e atencional do paciente, definindo a intervenção farmacológica e psicoterapêutica adequada.";
+                dynamicOptions = ["Agendar Consulta TDAH", "Valores e Formas de Pagamento", "Falar no WhatsApp"];
+              } else if (q.includes('sigilo') || q.includes('confidencial') || q.includes('íntimo') || q.includes('intimo') || q.includes('direto com o médico') || q.includes('email') || q.includes('e-mail') || q.includes('pessoal')) {
+                reply = "🔒 **Canal Exclusivo e Direto com o Dr. Humberto Calicchio:**\n\n" +
+                  "Para uma via direta e estritamente sigilosa diretamente com o médico, envie um e-mail para:\n\n" +
+                  "✉️ **calicchio@hotmail.com**\n\n" +
+                  "ℹ️ *O Dr. Humberto tem acesso a este canal e ao WhatsApp do consultório, mas a nossa secretária Milena também tem. Por isso, qualquer assunto confidencial ou reservado que você queira que apenas o médico veja deve ser encaminhado exclusivamente para o e-mail pessoal acima.*";
+                dynamicOptions = ["Agendar Consulta", "Localização do Consultório", "Voltar ao Início"];
+              } else if (q.includes('remédio') || q.includes('remedio') || q.includes('receita') || q.includes('medicamento') || q.includes('atestado') || q.includes('laudo')) {
+                reply = "💊 **Receitas, Medicamentos e Laudos:**\n\n" +
+                  "Em estrito respeito às normas do Conselho Federal de Medicina (CFM), a emissão de receitas de controle especial, renovações de medicamentos, laudos e atestados médicos exige avaliação médica em consulta prévia com o Dr. Humberto.";
+                dynamicOptions = ["Agendar Consulta", "Falar com a Secretária", "Valores e Horários"];
+              } else if (q.includes('sus') || q.includes('gratuito') || q.includes('de graça') || q.includes('publico') || q.includes('público') || q.includes('sem dinheiro') || q.includes('sem condições')) {
+                reply = "🏥 **Atendimento na Rede Pública de Campinas (SUS):**\n\n" +
+                  "O Dr. Humberto atende exclusivamente em consultório particular. Caso necessite de acolhimento público e gratuito em saúde mental em Campinas:\n\n" +
+                  "• **Centros de Saúde:** Procure o Centro de Saúde mais próximo da sua residência.\n" +
+                  "• **CAPS (Centros de Atenção Psicossocial):** Unidades especializadas para acolhimento diário de saúde mental em Campinas (CAPS III Guanabara, David Capistrano, etc.).";
+                dynamicOptions = ["Consulta Particular (90 min)", "Valores", "Voltar ao Início"];
+              }
+
+              var fallbackData = {
+                reply: reply,
+                content: reply,
+                role: 'assistant',
+                options: dynamicOptions,
+                source: 'milena-autonomous-instant-guard'
+              };
+
+              return new Response(JSON.stringify(fallbackData), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              });
+            } catch (fallbackErr) {
+              console.error('[Milena AI] Erro no gerador de contingência:', fallbackErr);
+            }
+          }
+
+          return origFetch.call(this, resource, init);
+        };
+      })();
+    </script>
+    <script>
+      (function() {
+        try {
+          var migrated = localStorage.getItem('dr_calicchio_circadian_migrated');
+          if (migrated !== 'v2') {
+            localStorage.setItem('dr_calicchio_circadian_migrated', 'v2');
+            localStorage.setItem('dr_calicchio_theme_preference', 'auto');
+          }
+          var saved = localStorage.getItem('dr_calicchio_theme_preference');
+          var hour = new Date().getHours();
+          var isNightTime = hour < 6 || hour >= 18; // Noite: 18h às 06h
+          var activeTheme = 'light'; // Padrão solicitado: Modo Claro diurno
+
+          if (saved === 'dark') {
+            activeTheme = 'dark';
+          } else if (saved === 'light') {
+            activeTheme = 'light';
+          } else {
+            // Modo Automático Circadiano (padrão): Claro de dia (06h às 18h) e Noturno à noite (18h às 06h)
+            activeTheme = isNightTime ? 'dark' : 'light';
+          }
+
+          if (activeTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468</title>
+    <meta name="description" content="Psiquiatra e Psicanalista em Campinas formado pela UNICAMP (CRM-SP 100468 / RQE 31774). Consultas de 90 min no Edifício Prime Office Plaza (Guanabara). Tratamento particular para ansiedade, depressão, pânico e TEA." />
+    
+    <!-- Favicon & Brand Icons: Logotipo Oficial Dr. Humberto Calicchio (Em estrita conformidade com as Diretrizes do Google Search) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Geo Meta Tags & Local SEO - Campinas, SP (Prime Office Plaza) -->
+    <meta name="geo.region" content="BR-SP" />
+    <meta name="geo.placename" content="Campinas" />
+    <meta name="geo.position" content="-22.88673;-47.06525" />
+    <meta name="ICBM" content="-22.88673, -47.06525" />
+    <meta name="place:location:latitude" content="-22.88673" />
+    <meta name="place:location:longitude" content="-47.06525" />
+    <meta name="business:contact_data:street_address" content="R. Clóvis Beviláqua, 243, Sala 06 - Edifício Prime Office Plaza" />
+    <meta name="business:contact_data:locality" content="Campinas" />
+    <meta name="business:contact_data:region" content="SP" />
+    <meta name="business:contact_data:postal_code" content="13073-021" />
+    <meta name="business:contact_data:country_name" content="Brasil" />
+    <meta name="business:contact_data:email" content="calicchio@hotmail.com" />
+    <meta name="business:contact_data:phone_number" content="+5519982505777" />
+    <meta name="theme-color" content="#fbfbfd" />
+
+    <!-- Google Search Console - Verificação Oficial de Propriedade do Domínio -->
+    <meta name="google-site-verification" content="bF0cXC3kS3sboO4Ir-8vzXv54KDcHhAusTATH5Y9qMk" />
+
+    <!-- Google tag (gtag.js) - Google Analytics 4 (Oficial do Consultório) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R27GZWJ4SE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Configure Google Analytics 4
+      gtag('config', 'G-R27GZWJ4SE', {
+        page_title: document.title,
+        page_location: window.location.href,
+        send_page_view: true
+      });
+    </script>
+
+    <!-- Meta Palavras-Chave & SEO Local Campinas -->
+    <meta name="keywords" content="psiquiatra campinas, psiquiatra em campinas, psiquiatra guanabara campinas, psicanalista campinas, dr humberto calicchio, crm-sp 100468, rqe 31774, tratamento ansiedade campinas, tratamento depressao campinas, ed prime office plaza campinas, psiquiatra unicamp campinas, consulta psiquiatrica 90 minutos, psicanalise winnicott campinas, avaliacao tea adulto campinas, tdah adulto campinas, psiquiatra cambui campinas" />
+
+    <!-- Canonical URL & Indexation for www.psiquiatraemcampinas.com -->
+    <link rel="canonical" href="https://www.psiquiatraemcampinas.com/" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <!-- Open Graph & Social Cards - Global Website da Clínica -->
+    <meta property="og:site_name" content="Dr. Humberto Calicchio — Psiquiatria & Psicanálise em Campinas" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://www.psiquiatraemcampinas.com/" />
+    <meta property="og:title" content="Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468 RQE 31774" />
+    <meta property="og:description" content="Consultório do Dr. Humberto Calicchio (CRM-SP 100468 / RQE 31774), médico psiquiatra e psicanalista formado pela UNICAMP. Atendimento particular a ansiedade, depressão, pânico e TEA no Edifício Prime Office Plaza (Guanabara, Campinas - SP)." />
+    <meta property="og:image" content="https://www.psiquiatraemcampinas.com/assets/whatsapp-share-card.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Consultório Dr. Humberto Calicchio - Psiquiatria & Psicanálise em Campinas" />
+
+    <!-- Twitter Cards - Optimized for High-Engagement Sharing -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468" />
+    <meta name="twitter:description" content="Consultório médico no Edifício Prime Office Plaza, Guanabara, Campinas - SP. Consultas de 90 min para ansiedade, depressão e TEA no adulto. CRM-SP 100468 | RQE 31774." />
+    <meta name="twitter:image" content="https://www.psiquiatraemcampinas.com/assets/whatsapp-share-card.jpg" />
+    <meta name="twitter:image:alt" content="Consultório Dr. Humberto Calicchio Psiquiatra em Campinas" />
+
+    <!-- Google Fonts: Plus Jakarta Sans & Newsreader (Apple-inspired refinement) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400..500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400..500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Animação Suave de Fade-In no Scroll das Seções -->
+    <style>
+      /* Estilos para animação fluida de aparição ao rolar a página */
+      section.scroll-fade-init {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      section.scroll-fade-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        section.scroll-fade-init {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
+      /* Correção Definitiva para Mobile (Chrome e Safari no iPhone/Android):
+         Evita colisão entre o botão flutuante e a barra inferior de navegação */
+      @media (max-width: 640px) {
+        #chat-trigger-container,
+        #floating-whatsapp-booking-button {
+          display: none !important;
+        }
+        #mobile-sticky-action-bar {
+          bottom: max(0.85rem, env(safe-area-inset-bottom, 0.85rem)) !important;
+          z-index: 9999 !important;
+        }
+      }
+    </style>
+    <script>
+      (function() {
+        if (typeof window === 'undefined') return;
+
+        function initScrollAnimations() {
+          if (!('IntersectionObserver' in window)) return;
+
+          var observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -50px 0px',
+            threshold: 0.08
+          };
+
+          var observer = new IntersectionObserver(function(entries, obs) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('scroll-fade-in');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, observerOptions);
+
+          function attachToSections() {
+            var sections = document.querySelectorAll('section');
+            var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            sections.forEach(function(sec) {
+              if (!sec.dataset.scrollObserved) {
+                sec.dataset.scrollObserved = 'true';
+                var rect = sec.getBoundingClientRect();
+                // Se a seção já estiver visível na carga inicial (topo da tela), exibe sem atraso
+                if (rect.top < windowHeight * 0.85) {
+                  sec.classList.add('scroll-fade-init', 'scroll-fade-in');
+                } else {
+                  sec.classList.add('scroll-fade-init');
+                  observer.observe(sec);
+                }
+              }
+            });
+          }
+
+          // Executa imediatamente e no DOMContentLoaded
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', attachToSections);
+          } else {
+            attachToSections();
+          }
+
+          // Observa novas seções adicionadas dinamicamente pelo React
+          var mutationObs = new MutationObserver(function() {
+            attachToSections();
+          });
+          mutationObs.observe(document.documentElement, { childList: true, subtree: true });
+        }
+
+        initScrollAnimations();
+      })();
+    </script>
+
+    <!-- Schema.org JSON-LD Structured Data for Google Ranking -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://www.psiquiatraemcampinas.com/#website",
+          "url": "https://www.psiquiatraemcampinas.com",
+          "name": "Dr. Humberto Calicchio — Psiquiatra e Psicanalista em Campinas",
+          "description": "Consultório de Psiquiatria Clínica Integrativa e Psicanálise do Dr. Humberto Calicchio no Edifício Prime Office Plaza, Campinas - SP.",
+          "publisher": {
+            "@id": "https://www.psiquiatraemcampinas.com/#clinic"
+          },
+          "inLanguage": "pt-BR"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://www.psiquiatraemcampinas.com/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.psiquiatraemcampinas.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Especialidades Clínicas",
+              "item": "https://www.psiquiatraemcampinas.com/#especialidades"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Sobre o Psiquiatra",
+              "item": "https://www.psiquiatraemcampinas.com/#sobre"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Consultório no Guanabara",
+              "item": "https://www.psiquiatraemcampinas.com/#localizacao"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Dúvidas Frequentes (FAQ)",
+              "item": "https://www.psiquiatraemcampinas.com/#faq"
+            }
+          ]
+        },
+        {
+          "@type": ["MedicalClinic", "LocalBusiness", "MedicalBusiness"],
+          "@id": "https://www.psiquiatraemcampinas.com/#clinic",
+          "name": "Consultório Dr. Humberto Calicchio — Psiquiatria & Psicanálise em Campinas",
+          "alternateName": [
+            "Consultório Dr. Humberto Calicchio no Edifício Prime Office Plaza",
+            "Psiquiatra em Campinas Dr. Humberto Calicchio",
+            "Psiquiatria Prime Office Plaza Campinas"
+          ],
+          "description": "Consultório de Psiquiatria Clínica Integrativa e Psicanálise do Dr. Humberto Calicchio no Edifício Prime Office Plaza, Bairro Guanabara / Jardim Brasil em Campinas - SP. Atendimento médico especializado a adultos e idosos com consultas de 90 minutos para ansiedade, depressão, síndrome do pânico, TEA e TDAH.",
+          "url": "https://www.psiquiatraemcampinas.com",
+          "telephone": "+5519982505777",
+          "email": "calicchio@hotmail.com",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "WhatsApp Text Only",
+            "telephone": "+5519982505777",
+            "availableLanguage": "Portuguese"
+          },
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.psiquiatraemcampinas.com/logo.png",
+            "width": 512,
+            "height": 512
+          },
+          "image": "https://www.psiquiatraemcampinas.com/logo.png",
+          "priceRange": "$$$",
+          "currenciesAccepted": "BRL",
+          "paymentAccepted": "Pix, Cartão de Débito, Cartão de Crédito, Dinheiro",
+          "hasMap": "https://maps.google.com/?cid=prime-office-plaza-campinas",
+          "areaServed": [
+            { "@type": "AdministrativeArea", "name": "Campinas" },
+            { "@type": "AdministrativeArea", "name": "Bairro Guanabara" },
+            { "@type": "AdministrativeArea", "name": "Cambuí" },
+            { "@type": "AdministrativeArea", "name": "Jardim Brasil" },
+            { "@type": "AdministrativeArea", "name": "Taquaral" },
+            { "@type": "AdministrativeArea", "name": "Barão Geraldo" },
+            { "@type": "AdministrativeArea", "name": "Nova Campinas" },
+            { "@type": "AdministrativeArea", "name": "Sousas" },
+            { "@type": "AdministrativeArea", "name": "Paulínia" },
+            { "@type": "AdministrativeArea", "name": "Valinhos" },
+            { "@type": "AdministrativeArea", "name": "Vinhedo" },
+            { "@type": "AdministrativeArea", "name": "Indaiatuba" }
+          ],
+          "availableService": [
+            {
+              "@type": "MedicalTherapy",
+              "name": "Consulta Psiquiátrica Inicial e Diagnóstica (90 minutos)",
+              "description": "Primeira consulta de avaliação completa com 90 minutos de acolhimento singular, psicodiagnóstico e planejamento terapêutico integral."
+            },
+            {
+              "@type": "MedicalTherapy",
+              "name": "Psicoterapia Analítica e Psicanálise",
+              "description": "Atendimento psicanalítico de orientação winnicottiana e freudiana para elaboração de conflitos inconscientes, angústia e sofrimento psíquico."
+            },
+            {
+              "@type": "MedicalTherapy",
+              "name": "Tratamento de Transtornos de Ansiedade e Síndrome do Pânico",
+              "description": "Abordagem clínica integrada com farmacoterapia de precisão e psicoterapia para remissão consistente dos sintomas ansiosos."
+            },
+            {
+              "@type": "MedicalTherapy",
+              "name": "Tratamento de Depressão e Transtornos do Humor",
+              "description": "Acompanhamento longitudinal de episódios depressivos e transtorno bipolar com suporte empático e base em evidências científicas."
+            },
+            {
+              "@type": "MedicalTherapy",
+              "name": "Investigação e Acompanhamento de TEA e TDAH no Adulto",
+              "description": "Diagnóstico diferencial especializado para sobrecarga sensorial, transtorno do espectro autista e déficit de atenção no adulto."
+            },
+            {
+              "@type": "MedicalTherapy",
+              "name": "Protocolos de Neuromodulação Clínica Não Invasiva",
+              "description": "Recursos terapêuticos neuromoduladores modernos aplicados como estratégia integrativa em casos selecionados."
+            }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Consultas Médicas Especializadas",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "MedicalProcedure",
+                  "name": "Consulta Psiquiátrica de Triagem e Avaliação (90 min)",
+                  "description": "Avaliação clínica aprofundada com plano terapêutico singular, emissão de nota fiscal para reembolso no plano de saúde."
+                }
+              }
+            ]
+          },
+          "containedInPlace": {
+            "@type": "Place",
+            "name": "Edifício Prime Office Plaza",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "R. Clóvis Beviláqua, 243",
+              "addressLocality": "Campinas",
+              "addressRegion": "SP",
+              "postalCode": "13073-021",
+              "addressCountry": "BR"
+            }
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "R. Clóvis Beviláqua, 243, Sala 06 - Edifício Prime Office Plaza",
+            "addressLocality": "Campinas",
+            "addressRegion": "SP",
+            "postalCode": "13073-021",
+            "addressCountry": "BR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -22.88673,
+            "longitude": -47.06525
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Monday",
+              "opens": "08:00",
+              "closes": "19:00",
+              "description": "Segunda-feira: 08:00 às 19:00 (com hora marcada)"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Tuesday",
+              "opens": "08:00",
+              "closes": "19:00",
+              "description": "Terça-feira: 08:00 às 19:00 (com hora marcada)"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Wednesday",
+              "opens": "00:00",
+              "closes": "00:00",
+              "description": "Quarta-feira: Fechado para atendimento externo"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Thursday",
+              "opens": "08:00",
+              "closes": "19:00",
+              "description": "Quinta-feira: 08:00 às 19:00 (com hora marcada)"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Friday",
+              "opens": "00:00",
+              "closes": "00:00",
+              "description": "Sexta-feira: Fechado para atendimento externo"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Saturday",
+              "opens": "00:00",
+              "closes": "00:00",
+              "description": "Sábado: Fechado"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Sunday",
+              "opens": "00:00",
+              "closes": "00:00",
+              "description": "Domingo: Fechado"
+            }
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "18"
+          },
+          "medicalSpecialty": [
+            "https://schema.org/Psychiatric"
+          ]
+        },
+        {
+          "@type": "Physician",
+          "@id": "https://www.psiquiatraemcampinas.com/#physician",
+          "name": "Dr. Humberto Calicchio",
+          "jobTitle": "Médico Psiquiatra e Psicanalista",
+          "alumniOf": "Faculdade de Ciências Médicas da Universidade Estadual de Campinas (UNICAMP)",
+          "identifier": [
+            {
+              "@type": "PropertyValue",
+              "name": "CRM-SP",
+              "value": "100468"
+            },
+            {
+              "@type": "PropertyValue",
+              "name": "RQE",
+              "value": "31774"
+            }
+          ],
+          "knowsAbout": [
+            "Psiquiatria Clínica Integrativa",
+            "Psicanálise Winnicottiana e Freudiana",
+            "Transtorno de Ansiedade Generalizada (TAG)",
+            "Transtorno do Pânico",
+            "Depressão Maior e Transtornos do Humor",
+            "Transtorno Bipolar",
+            "Transtorno Obsessivo-Compulsivo (TOC)",
+            "Investigação de TEA no Adulto (Espectro Autista)",
+            "Investigação de TDAH no Adulto",
+            "Sobrecarga Sensorial",
+            "Psicofarmacologia Contemporânea",
+            "Neuromodulação Não Invasiva"
+          ],
+          "medicalSpecialty": [
+            "https://schema.org/Psychiatric"
+          ],
+          "worksFor": {
+            "@id": "https://www.psiquiatraemcampinas.com/#clinic"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.psiquiatraemcampinas.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "O Dr. Humberto Calicchio atende por convênios de saúde?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "O atendimento no consultório é exclusivamente particular. Essa escolha garante consultas sem pressa (com 90 minutos de duração), com escuta atenta e plano terapêutico detalhado. Emitimos nota fiscal eletrônica e recibo médico com CRM-SP 100468 e RQE 31774 para que o paciente solicite o reembolso junto ao seu plano de saúde e realize a dedução integral em seu Imposto de Renda (IRPF)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Qual é a duração da consulta psiquiátrica com o Dr. Humberto Calicchio?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A primeira consulta de triagem e avaliação diagnóstica tem duração estendida de 90 minutos. Esse tempo ampliado permite uma investigação clínica minuciosa do histórico de vida, sintomas, medicações prévias e objetivos do paciente, sem a sobrecarga das consultas rápidas convencionais."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como agendar a primeira consulta presencial no Guanabara?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "O agendamento é realizado por interface humana diretamente via WhatsApp (19) 98250-5777 ou pelo e-mail calicchio@hotmail.com. Não utilizamos sistemas robotizados de autoagendamento: a recepcionista Milena ou o próprio Dr. Humberto acolhe o paciente e organiza o melhor dia e horário na agenda oficial."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Onde fica localizado o consultório em Campinas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "O consultório está localizado no Edifício Prime Office Plaza, na Rua Clóvis Bevilacqua, 243, Sala 06, no tradicional bairro Jardim Brasil / Guanabara em Campinas - SP (a cerca de 300 metros da Universidade Presbiteriana Mackenzie e próximo ao Diagmed), com vagas de estacionamento na frente do prédio e total acessibilidade."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como funciona o atendimento para TEA e TDAH no adulto em Campinas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A investigação de Transtorno do Espectro Autista (TEA) e TDAH em adultos é realizada através de avaliação clínica cuidadosa, anamnese do neurodesenvolvimento, mapeamento de sobrecarga sensorial e diagnóstico diferencial com transtornos de ansiedade e humor, com plano adaptado à singularidade neurodivergente."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "O consultório possui vagas de estacionamento?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim, o Edifício Prime Office Plaza conta com 4 vagas na frente do prédio destinadas a pacientes (sem manobrista). Além disso, como o consultório fica localizado exatamente em frente a uma praça com extensão muito ampla, há grande facilidade e tranquilidade para deixar o carro estacionado na própria rua, além de segurança no edifício (das 08h às 21h) e elevadores modernos com acessibilidade total."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "MedicalScholarlyArticle",
+          "@id": "https://www.psiquiatraemcampinas.com/#clinical-insights-constancia",
+          "headline": "Constância Terapêutica vs. O Mito da Alta Precoce",
+          "alternativeHeadline": "Reflexão sobre farmacoterapia contemporânea, estigma moral e adesão terapêutica no consultório psiquiátrico.",
+          "author": {
+            "@id": "https://www.psiquiatraemcampinas.com/#physician"
+          },
+          "publisher": {
+            "@id": "https://www.psiquiatraemcampinas.com/#clinic"
+          },
+          "url": "https://www.psiquiatraemcampinas.com/#clinical-insights",
+          "image": "https://www.psiquiatraemcampinas.com/logo.png",
+          "datePublished": "2026-09-01",
+          "dateModified": "2026-10-01",
+          "inLanguage": "pt-BR",
+          "about": [
+            {
+              "@type": "MedicalCondition",
+              "name": "Ansiedade, Depressão e Remissão Clínica"
+            }
+          ],
+          "description": "Ensaio clínico do Dr. Humberto Calicchio sobre a necessidade biológica e existencial de manter a constância terapêutica durante a remissão dos sintomas para evitar recaídas."
+        }
+      ]
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-stable.js?v=real-photos-live-1012"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-ZzAGmC6s.css">
+  </head>
+  
+    
+
+  <body class="bg-[#08060c] text-[#f5f5f7] antialiased selection:bg-purple-700 selection:text-white">
+    <div id="root">
+      <!-- Conteúdo Semântico Pré-Renderizado para Indexação Imediata pelo Googlebot e Mecanismos de Busca -->
+      <header style="max-width: 1200px; margin: 0 auto; padding: 20px 16px;">
+        <nav aria-label="Navegação do Consultório">
+          <p style="font-size: 14px; margin: 0; color: #94a3b8;">
+            <strong>Dr. Humberto Calicchio</strong> — CRM-SP 100468 | RQE 31774
+          </p>
+          <p style="font-size: 13px; margin: 4px 0 0 0; color: #64748b;">
+            Médico Psiquiatra e Psicanalista formado pela UNICAMP (Universidade Estadual de Campinas)
+          </p>
+        </nav>
+      </header>
+
+      <main style="max-width: 1200px; margin: 0 auto; padding: 0 16px 40px 16px;">
+        <article>
+          <!-- Apresentação Clínica & Credenciais Médicas Oficiais -->
+          <div style="background: linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 22px 24px; margin-bottom: 28px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+              <div>
+                <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.5px;">
+                  🎓 Formação UNICAMP · CRM-SP 100468 · RQE 31774
+                </span>
+                <h2 style="font-size: 20px; font-weight: 700; color: #f8fafc; margin: 10px 0 6px 0;">
+                  Psiquiatria Clínica & Psicoterapia de Orientação Analítica
+                </h2>
+                <p style="font-size: 13px; color: #94a3b8; margin: 0; line-height: 1.5;">
+                  Quase 26 anos de experiência clínica no tratamento de adultos (maiores de 18 anos). Primeira consulta ampliada de 90 minutos presencial no Guanabara, Campinas/SP (continuidade com opção de telemedicina).
+                </p>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20primeira%20consulta%20com%20o%20Dr.%20Humberto%20Calicchio" target="_blank" rel="noopener noreferrer" style="background: #22c55e; color: #ffffff; font-weight: 700; font-size: 14px; padding: 11px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);">
+                  💬 Agendar via WhatsApp (19) 98250-5777
+                </a>
+                <button onclick="openFotosModal()" type="button" style="background: linear-gradient(135deg, #7e22ce 0%, #9333ea 100%); color: #ffffff; font-weight: 700; font-size: 13px; padding: 11px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(147, 51, 234, 0.4);">
+                  📷 Fotos do Consultório
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <h1 style="font-size: 28px; line-height: 1.3; margin-bottom: 16px; color: #f8fafc;">
+            Psiquiatra em Campinas — Dr. Humberto Calicchio | CRM-SP 100468 / RQE 31774
+          </h1>
+          <p style="font-size: 16px; line-height: 1.6; color: #cbd5e1; margin-bottom: 24px;">
+            Consultório especializado em Psiquiatria Clínica Integrativa e Psicanálise de orientação winnicottiana e freudiana no Edifício Prime Office Plaza, Bairro Guanabara, Campinas - SP. Médico psiquiatra formado pela Universidade Estadual de Campinas (UNICAMP), com atendimento particular aprofundado a adultos e idosos em consultas de 90 minutos de acolhimento singular.
+          </p>
+
+          
+          <!-- BANNER OFICIAL: ÁREA MÉDICA & CONVERSOR CID-10 ➔ CID-11 -->
+          <div style="margin-bottom: 32px; background: linear-gradient(135deg, rgba(126, 34, 206, 0.12) 0%, rgba(56, 189, 248, 0.08) 100%); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: 16px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+            <div style="display: flex; align-items: flex-start; gap: 16px; max-width: 680px;">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(147, 51, 234, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">
+                🩺
+              </div>
+              <div>
+                <div style="display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 9999px; background: rgba(147, 51, 234, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); color: #e9d5ff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">
+                  <span>Para Médicos, Psiquiatras & Psicólogos</span>
+                </div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0;">
+                  Conversor Inteligente CID-10 ➔ CID-11 em Psiquiatria
+                </h3>
+                <p style="font-size: 13px; color: #cbd5e1; margin: 0; line-height: 1.5;">
+                  Consulte equivalências diagnósticas da OMS para <strong>TEA (6A02)</strong>, <strong>TDAH (6A05)</strong>, <strong>TEPT Complexo (6B41)</strong>, <strong>Burnout (QD85)</strong>, Humor e Ansiedade com cópia direta para laudos e prontuários.
+                </p>
+              </div>
+            </div>
+            <a href="/conversor-cid" style="background: linear-gradient(135deg, #7e22ce 0%, #9333ea 100%); color: #ffffff; font-weight: 700; font-size: 13px; padding: 12px 22px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(126, 34, 206, 0.4); border: 1px solid rgba(255, 255, 255, 0.2); flex-shrink: 0;">
+              <span>Acessar Tabela CID-11</span>
+              <span>➔</span>
+            </a>
+          </div>
+
+          <section style="margin-bottom: 40px;" id="especialidades">
+            <div style="margin-bottom: 20px;">
+              <p style="font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #38bdf8; margin: 0 0 6px 0;">
+                Áreas de Atuação Clínica · UNICAMP · CRM-SP 100468 / RQE 31774
+              </p>
+              <h2 style="font-size: 24px; color: #f8fafc; margin: 0 0 8px 0; font-weight: 700;">
+                Especialidades Clínicas & Áreas de Atuação
+              </h2>
+              <p style="font-size: 14px; color: #cbd5e1; line-height: 1.6; margin: 0;">
+                Quase 26 anos de experiência médica integrando psicofarmacologia contemporânea e aprofundamento analítico. Clique em cada cartão para conhecer a abordagem e os sinais investigados.
+              </p>
+            </div>
+
+            <!-- Grid de Cartões Interativos -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;" role="list">
+              <!-- Cartão 1: TEA no Adulto -->
+              <div class="specialty-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease;" role="listitem">
+                <div>
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                      🧠
+                    </div>
+                    <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Neurodesenvolvimento</span>
+                  </div>
+                  <h3 style="font-size: 17px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0;">TEA no Adulto</h3>
+                  <p style="font-size: 12px; color: #38bdf8; margin: 0 0 10px 0; font-weight: 500;">Espectro Autista & Diagnóstico Tardio</p>
+                  <p style="font-size: 13px; color: #cbd5e1; line-height: 1.55; margin: 0 0 14px 0;">
+                    Avaliação criteriosa de autismo em adultos, mapeamento de hipersensibilidades sensoriais, alívio do burnout autista por camuflagem social (masking) e adaptações personalizadas.
+                  </p>
+                  <details style="margin-bottom: 12px; font-size: 12px; color: #cbd5e1;">
+                    <summary style="cursor: pointer; color: #38bdf8; font-weight: 600; padding: 4px 0;">Ver abordagem e sinais investigados</summary>
+                    <div style="padding-top: 8px; line-height: 1.5; color: #94a3b8;">
+                      <p style="margin: 4px 0;">• Sobrecargas sensoriais (ruído, iluminação, toques)</p>
+                      <p style="margin: 4px 0;">• Dificuldade com conversas casuais e pistas sociais</p>
+                      <p style="margin: 4px 0;">• Diagnóstico diferencial seguro com ansiedade e TDAH</p>
+                      <p style="margin: 4px 0;">• <em>Consulta de 90 min com recibo para reembolso.</em></p>
+                    </div>
+                  </details>
+                </div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; display: flex; justify-content: flex-end;">
+                  <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20avalia%C3%A7%C3%A3o%20de%20TEA%20no%20adulto%20com%20o%20Dr.%20Humberto" target="_blank" rel="noopener noreferrer" style="font-size: 12px; font-weight: 700; color: #38bdf8; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                    Agendar para TEA →
+                  </a>
+                </div>
+              </div>
+
+              <!-- Cartão 2: TDAH no Adulto -->
+              <div class="specialty-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease;" role="listitem">
+                <div>
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.3); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                      🎯
+                    </div>
+                    <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Funções Executivas</span>
+                  </div>
+                  <h3 style="font-size: 17px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0;">TDAH no Adulto</h3>
+                  <p style="font-size: 12px; color: #fbbf24; margin: 0 0 10px 0; font-weight: 500;">Atenção, Foco & Hiperatividade Mental</p>
+                  <p style="font-size: 13px; color: #cbd5e1; line-height: 1.55; margin: 0 0 14px 0;">
+                    Investigação aprofundada da desregulação atencional, procrastinação paralisante, desorganização executiva e oscilações no rendimento acadêmico e profissional.
+                  </p>
+                  <details style="margin-bottom: 12px; font-size: 12px; color: #cbd5e1;">
+                    <summary style="cursor: pointer; color: #fbbf24; font-weight: 600; padding: 4px 0;">Ver abordagem e sinais investigados</summary>
+                    <div style="padding-top: 8px; line-height: 1.5; color: #94a3b8;">
+                      <p style="margin: 4px 0;">• Dificuldade crônica em iniciar ou concluir tarefas</p>
+                      <p style="margin: 4px 0;">• Hiperatividade mental contínua e impulsividade</p>
+                      <p style="margin: 4px 0;">• Psicofarmacologia responsável com controle clínico rigoroso</p>
+                      <p style="margin: 4px 0;">• <em>Consulta de 90 min com recibo para reembolso.</em></p>
+                    </div>
+                  </details>
+                </div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; display: flex; justify-content: flex-end;">
+                  <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20investiga%C3%A7%C3%A3o%20de%20TDAH%20no%20adulto%20com%20o%20Dr.%20Humberto" target="_blank" rel="noopener noreferrer" style="font-size: 12px; font-weight: 700; color: #fbbf24; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                    Agendar para TDAH →
+                  </a>
+                </div>
+              </div>
+
+              <!-- Cartão 3: Ansiedade e Pânico -->
+              <div class="specialty-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease;" role="listitem">
+                <div>
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                      ⚡
+                    </div>
+                    <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Regulação Neurobiológica</span>
+                  </div>
+                  <h3 style="font-size: 17px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0;">Ansiedade & Pânico</h3>
+                  <p style="font-size: 12px; color: #34d399; margin: 0 0 10px 0; font-weight: 500;">TAG, Crises de Pânico & Fobias</p>
+                  <p style="font-size: 13px; color: #cbd5e1; line-height: 1.55; margin: 0 0 14px 0;">
+                    Acolhimento rápido de crises agudas, alívio de sintomas físicos (taquicardia, falta de ar, aperto no peito) e psicofarmacologia contemporânea com foco em remissão sustentável.
+                  </p>
+                  <details style="margin-bottom: 12px; font-size: 12px; color: #cbd5e1;">
+                    <summary style="cursor: pointer; color: #34d399; font-weight: 600; padding: 4px 0;">Ver abordagem e sinais investigados</summary>
+                    <div style="padding-top: 8px; line-height: 1.5; color: #94a3b8;">
+                      <p style="margin: 4px 0;">• Interrupção segura de crises de pânico e fobia</p>
+                      <p style="margin: 4px 0;">• Preocupação antecipatória e insônia crônica</p>
+                      <p style="margin: 4px 0;">• Prescrição sem sedação excessiva ou dependência</p>
+                      <p style="margin: 4px 0;">• <em>Consulta de 90 min com recibo para reembolso.</em></p>
+                    </div>
+                  </details>
+                </div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; display: flex; justify-content: flex-end;">
+                  <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20atendimento%20para%20ansiedade%20e%20p%C3%A2nico%20com%20o%20Dr.%20Humberto" target="_blank" rel="noopener noreferrer" style="font-size: 12px; font-weight: 700; color: #34d399; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                    Agendar para Ansiedade →
+                  </a>
+                </div>
+              </div>
+
+              <!-- Cartão 4: Depressão e Humor -->
+              <div class="specialty-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(244, 114, 182, 0.3); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease;" role="listitem">
+                <div>
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.3); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                      🌅
+                    </div>
+                    <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Recuperação Vital</span>
+                  </div>
+                  <h3 style="font-size: 17px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0;">Depressão & Humor</h3>
+                  <p style="font-size: 12px; color: #f472b6; margin: 0 0 10px 0; font-weight: 500;">Depressão Unipolar, Bipolar & Distimia</p>
+                  <p style="font-size: 13px; color: #cbd5e1; line-height: 1.55; margin: 0 0 14px 0;">
+                    Acompanhamento longitudinal compassivo para perda de vitalidade (anedonia), tristeza profunda e oscilações do humor, restabelecendo o dinamismo biológico e psíquico.
+                  </p>
+                  <details style="margin-bottom: 12px; font-size: 12px; color: #cbd5e1;">
+                    <summary style="cursor: pointer; color: #f472b6; font-weight: 600; padding: 4px 0;">Ver abordagem e sinais investigados</summary>
+                    <div style="padding-top: 8px; line-height: 1.5; color: #94a3b8;">
+                      <p style="margin: 4px 0;">• Perda do prazer em atividades rotineiras (anedonia)</p>
+                      <p style="margin: 4px 0;">• Lentificação, cansaço inexplicável e culpa excessiva</p>
+                      <p style="margin: 4px 0;">• Acompanhamento contínuo durante a fase de remissão</p>
+                      <p style="margin: 4px 0;">• <em>Consulta de 90 min com recibo para reembolso.</em></p>
+                    </div>
+                  </details>
+                </div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; display: flex; justify-content: flex-end;">
+                  <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20consulta%20para%20depress%C3%A3o%20e%20humor%20com%20o%20Dr.%20Humberto" target="_blank" rel="noopener noreferrer" style="font-size: 12px; font-weight: 700; color: #f472b6; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                    Agendar para Depressão →
+                  </a>
+                </div>
+              </div>
+
+              <!-- Cartão 5: Psicanálise & Psicoterapia Analítica -->
+              <div class="specialty-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(167, 139, 250, 0.4); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease;" role="listitem">
+                <div>
+                  <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(167, 139, 250, 0.15); border: 1px solid rgba(167, 139, 250, 0.4); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                      🧭
+                    </div>
+                    <span style="font-size: 11px; color: #c4b5fd; font-weight: 600;">RQE 31774 · Titulação Oficial</span>
+                  </div>
+                  <h3 style="font-size: 17px; font-weight: 700; color: #ffffff; margin: 0 0 4px 0;">Psicanálise & Psicoterapia</h3>
+                  <p style="font-size: 12px; color: #a78bfa; margin: 0 0 10px 0; font-weight: 500;">Psicoterapia de Orientação Analítica</p>
+                  <p style="font-size: 13px; color: #cbd5e1; line-height: 1.55; margin: 0 0 14px 0;">
+                    Subespecialidade médica titulada oficial do Dr. Humberto (RQE 31774). Espaço protegido de escuta psicanalítica para conflitos inconscientes, impasses amorosos, luto e reconstrução de sentido.
+                  </p>
+                  <details style="margin-bottom: 12px; font-size: 12px; color: #cbd5e1;">
+                    <summary style="cursor: pointer; color: #a78bfa; font-weight: 600; padding: 4px 0;">Ver abordagem e sinais investigados</summary>
+                    <div style="padding-top: 8px; line-height: 1.5; color: #94a3b8;">
+                      <p style="margin: 4px 0;">• Repetição dolorosa de padrões nos relacionamentos</p>
+                      <p style="margin: 4px 0;">• Angústia existencial, transições de vida e perdas</p>
+                      <p style="margin: 4px 0;">• Escuta profunda fundamentada em Winnicott e Freud</p>
+                      <p style="margin: 4px 0;">• <em>Sessões no consultório no Guanabara, Campinas.</em></p>
+                    </div>
+                  </details>
+                </div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; display: flex; justify-content: flex-end;">
+                  <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20Psicoterapia%20Anal%C3%ADtica%20com%20o%20Dr.%20Humberto" target="_blank" rel="noopener noreferrer" style="font-size: 12px; font-weight: 700; color: #a78bfa; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                    Agendar para Psicanálise →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nota de Esclarecimento Ético -->
+            <div style="margin-top: 20px; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: #94a3b8; line-height: 1.6;">
+              <strong style="color: #cbd5e1;">Esclarecimento Ético Informativo:</strong> A subespecialidade médica oficialmente titulada do Dr. Humberto Calicchio é a <strong>Psicoterapia de Orientação Analítica</strong> (RQE 31774 / CRM-SP 100468). A alta expertise nas demais áreas clínicas decorre de quase 26 anos de intensa prática médica e estudo contínuo das enfermidades descritas neste site.
+            </div>
+          </section>
+
+          <section style="margin-bottom: 32px;" id="sobre">
+            <h2 style="font-size: 20px; color: #e2e8f0; margin-bottom: 12px;">Sobre o Dr. Humberto Calicchio — Psiquiatra UNICAMP</h2>
+            <p style="line-height: 1.6; color: #94a3b8;">
+              Graduação em Medicina e Residência Médica em Psiquiatria pela Universidade Estadual de Campinas (FCM UNICAMP). Possui Registro de Qualificação de Especialista (RQE 31774) e inscrição no Conselho Regional de Medicina de São Paulo (CRM-SP 100468). Sua prática médica alia sólida fundamentação psicofarmacológica, sensibilidade psicanalítica e observância rigorosa às diretrizes éticas do Conselho Federal de Medicina (CFM).
+            </p>
+          </section>
+
+          <section style="margin-bottom: 32px;" id="regioes-campinas">
+            <h2 style="font-size: 20px; color: #e2e8f0; margin-bottom: 12px;">Regiões e Bairros com Fácil Acesso em Campinas</h2>
+            <p style="line-height: 1.6; color: #94a3b8;">
+              Localizado estrategicamente no Bairro Guanabara / Jardim Brasil, o consultório atende pacientes de toda a Região Metropolitana de Campinas: <strong>Guanabara, Cambuí, Jardim Brasil, Taquaral, Barão Geraldo, Nova Campinas, Sousas, Joaquim Egídio, Paulínia, Valinhos, Vinhedo e Indaiatuba</strong>. A primeira consulta é realizada presencialmente no consultório (90 minutos exclusivos); a continuidade por telemedicina pode ser acordada com o médico para atendimentos de seguimento.
+            </p>
+          </section>
+
+          <section style="margin-bottom: 32px;" id="localizacao">
+            <h2 style="font-size: 20px; color: #e2e8f0; margin-bottom: 12px;">Localização do Consultório no Guanabara</h2>
+            <address style="font-style: normal; line-height: 1.6; color: #94a3b8;">
+              <strong>Edifício Prime Office Plaza</strong><br />
+              Rua Clóvis Bevilacqua, 243, Sala 06 — Bairro Guanabara / Jardim Brasil<br />
+              Campinas - SP, CEP 13073-021 (Próximo à Universidade Presbiteriana Mackenzie e ao Diagmed)<br />
+              Telefone / WhatsApp Oficial: (19) 98250-5777<br />
+              E-mail: calicchio@hotmail.com
+            </address>
+            <p style="font-size: 14px; color: #64748b; margin-top: 8px;">
+              Edifício comercial com 4 vagas na frente do prédio destinadas a pacientes (sem manobrista), grande facilidade para estacionar na rua ao redor da ampla praça em frente, acessibilidade completa para PCD e segurança das 08h às 21h.
+            </p>
+            <div style="font-size: 14px; color: #e2e8f0; margin-top: 12px; background: rgba(255,255,255,0.03); padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <p style="font-weight: 600; color: #38bdf8; margin-bottom: 6px;">🕒 Horários de Atendimento (com hora marcada):</p>
+              <p style="margin: 4px 0; color: #cbd5e1;">• <strong>Segundas, Terças e Quintas-feiras:</strong> das 08h às 19h</p>
+              <p style="margin: 4px 0; color: #cbd5e1;">• <strong>Sextas-feiras:</strong> 1 sexta ao mês (data definida previamente a cada mês), das 08h às 19h</p>
+              <p style="margin-top: 6px; font-size: 12px; color: #94a3b8; font-style: italic;">Atendimento exclusivamente particular com recibo e Nota Fiscal para reembolso e IRPF.</p>
+            </div>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 10px; line-height: 1.5; font-style: italic;">
+              🔒 <strong>Nota de privacidade:</strong> O WhatsApp do consultório é compartilhado com a equipe de recepção exclusivamente para agendamentos e esclarecimentos administrativos. Por gentileza, não envie detalhes clínicos ou questões sigilosas por este canal. Seus relatos de saúde serão acolhidos com total sigilo médico durante a consulta.
+            </p>
+          </section>
+
+          <section style="margin-bottom: 32px;">
+            <h2 style="font-size: 20px; color: #e2e8f0; margin-bottom: 12px;">Valores, Duração da Consulta e Reembolso</h2>
+            <p style="line-height: 1.6; color: #94a3b8;">
+              Atendimento exclusivamente particular com 90 minutos de duração na primeira consulta de avaliação diagnóstica (R$ 900,00). O consultório emite Nota Fiscal Eletrônica e recibo médico oficial com CRM-SP e RQE para que o paciente solicite o reembolso integral ou parcial junto ao seu plano de saúde (Bradesco Saúde, SulAmérica, Amil, Care Plus, Porto Seguro, Unimed, etc., na modalidade livre escolha) e realize a dedução médica no Imposto de Renda (IRPF).
+            </p>
+          </section>
+
+          <section style="margin-bottom: 32px;" id="faq">
+            <h2 style="font-size: 20px; color: #e2e8f0; margin-bottom: 12px;">Perguntas Frequentes sobre Consulta Psiquiátrica em Campinas</h2>
+            <div style="line-height: 1.6; color: #94a3b8;">
+              <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">O Dr. Humberto atende por convênio médico?</h3>
+              <p>O atendimento é exclusivamente particular. Essa escolha deliberada garante consultas sem pressa (com 90 minutos de acolhimento singular), sem a restrição de tempo imposta pelas operadoras de saúde. Emitimos nota fiscal eletrônica e recibo discriminado para reembolso pelo seu plano de saúde.</p>
+
+              <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">Qual a duração da consulta psiquiátrica?</h3>
+              <p>A primeira consulta tem 90 minutos de duração. Esse tempo ampliado permite investigar a fundo a história de vida, histórico familiar, sintomas prévios, tratamentos anteriores e construir um plano terapêutico personalizado com segurança.</p>
+
+              <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">Como agendar uma consulta presencial ou telemedicina?</h3>
+              <p>O agendamento é realizado por contato humano diretamente pelo WhatsApp oficial (19) 98250-5777 ou pelo e-mail calicchio@hotmail.com. Não utilizamos sistemas robotizados de autoagendamento: a recepcionista Milena ou o Dr. Humberto organiza o melhor dia e horário na agenda oficial.</p>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 6px; font-style: italic;">Aviso de sigilo: O WhatsApp é compartilhado com a recepção para agendamentos. Solicitamos a gentileza de não expor informações clínicas ou sigilosas por mensagem.</p>
+
+              <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">Onde fica o consultório no Guanabara e tem estacionamento?</h3>
+              <p>O consultório fica no Edifício Prime Office Plaza, na Rua Clóvis Bevilacqua, 243, Sala 06, no Guanabara, Campinas - SP, próximo à Universidade Mackenzie. O edifício dispõe de 4 vagas na frente do prédio para pacientes (sem manobrista). Além disso, como fica localizado exatamente em frente a uma praça com extensão muito ampla, há bastante facilidade e tranquilidade para deixar o carro estacionado na própria rua, com segurança e elevadores acessíveis.</p>
+
+              <h3 style="font-size: 16px; color: #e2e8f0; margin-top: 16px;">Como funciona a avaliação de TEA e TDAH no adulto?</h3>
+              <p>A investigação é realizada a partir de anamnese clínica longitudinal do neurodesenvolvimento, mapeamento de sobrecargas sensoriais, funções executivas e diagnóstico diferencial com ansiedade e depressão, respeitando a singularidade de cada paciente neurodivergente.</p>
+            </div>
+          </section>
+        </article>
+      </main>
+
+      <footer style="max-width: 896px; margin: 0 auto; padding: 32px 16px; font-size: 12px; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+        <p style="margin: 0; font-weight: 500; color: #cbd5e1;">CRM-SP 100468 · RQE 31774</p>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <a href="mailto:calicchio@hotmail.com" style="color: #38bdf8; text-decoration: none; font-weight: 500;">calicchio@hotmail.com</a>
+        </div>
+      </footer>
+    </div>
+  <script>
+  (function() {
+    function injectCIDButton() {
+      if (document.getElementById('cid-nav-btn')) return;
+      var buttons = Array.from(document.querySelectorAll('button, a'));
+      var portalBtn = buttons.find(function(el) {
+        return el.textContent && el.textContent.trim().includes('Portal');
+      });
+      if (portalBtn && portalBtn.parentNode) {
+        var link = document.createElement('a');
+        link.id = 'cid-nav-btn';
+        link.href = '/conversor-cid';
+        link.innerHTML = '<span style="font-size: 14px;">🩺</span> <span style="font-weight: 700; letter-spacing: -0.2px;">Tabela CID-11</span> <span style="font-size: 10px; font-weight: 700; background: #9333ea; color: #ffffff; padding: 2px 7px; border-radius: 9999px; margin-left: 2px; text-transform: uppercase;">Médicos</span>';
+        link.title = 'Conversor Clínico CID-10 ➔ CID-11 para Médicos e Psicólogos';
+        link.style.cssText = 'display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: #ffffff; background: linear-gradient(135deg, #6b21a8 0%, #7e22ce 100%); border: 1px solid rgba(216, 180, 254, 0.5); padding: 6px 14px; border-radius: 9999px; text-decoration: none; margin-right: 8px; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(107, 33, 168, 0.35);';
+        link.onmouseover = function() { link.style.transform = 'translateY(-1px)'; link.style.boxShadow = '0 4px 12px rgba(126, 34, 206, 0.5)'; };
+        link.onmouseout = function() { link.style.transform = 'none'; link.style.boxShadow = '0 2px 8px rgba(107, 33, 168, 0.35)'; };
+        portalBtn.parentNode.insertBefore(link, portalBtn);
+      }
+    }
+    setInterval(injectCIDButton, 400);
+  })();
+</script>
+</body>
+</html>
+
               self.removeEventListener = function() {};
               self.onopen = null;
               self.onmessage = null;
