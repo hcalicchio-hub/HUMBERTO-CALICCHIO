@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor CID-10 ➔ CID-11 Psiquiatria & Saúde Mental | Dr. Humberto Calicchio</title>
+  <meta name="description" content="Ferramenta clínica e acadêmica para médicos, psiquiatras e psicólogos realizarem o cruzamento inteligente e equivalência diagnóstica entre CID-10 e CID-11 em Psiquiatria e Neurodesenvolvimento (TEA, TDAH, TEPT-C, Humor e Ansiedade).">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://www.psiquiatraemcampinas.com/conversor-cid">
+
+  <!-- OpenGraph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Conversor CID-10 ➔ CID-11 em Psiquiatria | Dr. Humberto Calicchio">
+  <meta property="og:description" content="Tabela de equivalência diagnóstica inteligente entre CID-10 e CID-11 para laudos, prontuários e relatórios médicos em Saúde Mental e Neurodesenvolvimento.">
+  <meta property="og:image" content="/assets/consultorio/dr-humberto-foto-1-fachada-prime.jpg">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#7e22ce',
+              accent: '#38bdf8',
+              emerald: '#10b981',
+              dark: '#08060c',
+              cardDark: '#120f1d'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .code-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-card {
+      background: rgba(18, 15, 29, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(168, 85, 247, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-[#08060c] text-slate-100 min-h-screen antialiased selection:bg-purple-700 selection:text-white flex flex-col justify-between">
+
+  <!-- TOPO DE NAVEGAÇÃO -->
+  <header class="border-b border-white/10 bg-[#0e0c18]/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-xl bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-300 font-bold text-lg group-hover:scale-105 transition-transform">
+            HC
+          </div>
+          <div>
+            <div class="font-bold text-base text-white tracking-tight flex items-center gap-2">
+              Dr. Humberto Calicchio
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">UNICAMP</span>
+            </div>
+            <div class="text-xs text-slate-400">
+              CRM-SP 100468 · RQE 31774 · Psiquiatria & Psicanálise
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="/" class="text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/5">
+          ← Voltar ao Consultório
+        </a>
+        <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20Dr.%20Humberto%2C%20sou%20m%C3%A9dico%2Fprofissional%20de%20sa%C3%BAde%20e%20gostaria%20de%20conversar%20sobre%20encaminhamento%20ou%20discuss%C3%A3o%20cl%C3%ADnica" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl transition-all shadow-lg shadow-purple-900/30 flex items-center gap-2">
+          <span>🩺 Contato Médico / Interconsulta</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+
+    <!-- HERO DO CONVERSOR -->
+    <div class="mb-10 text-center max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-semibold mb-4 tracking-wide uppercase">
+        <span>OMS · Organização Mundial da Saúde</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+        <span>Área Médica & Multidisciplinar</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+        Conversor Inteligente <br class="hidden sm:block"/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-sky-400">
+          CID-10 ➔ CID-11 em Psiquiatria
+        </span>
+      </h1>
+
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        Guia de equivalência diagnóstica estruturado pelo <strong>Dr. Humberto Calicchio</strong> para auxiliar médicos, psiquiatras, psicólogos e equipes multiprofissionais na transição dos códigos de laudos, relatórios e prontuários clínicos.
+      </p>
+
+      <!-- DESTAQUES DA TRANSIÇÃO -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 text-left">
+        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+          <div class="text-xs text-purple-400 font-semibold uppercase">TEA (Autismo)</div>
+          <div class="text-sm font-bold text-white mt-0.5">6A02 Unificado</div>
+          <div class="text-[11px] text-slate-400">Supera divisão de Asperger</div>
+        </div>
+        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+          <div class="text-xs text-amber-400 font-semibold uppercase">TDAH no Adulto</div>
+          <div class="text-sm font-bold text-white mt-0.5">6A05 Formalizado</div>
+          <div class="text-[11px] text-slate-400">Apresentação clínica ao longo da vida</div>
+        </div>
+        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+          <div class="text-xs text-emerald-400 font-semibold uppercase">Trauma Complexo</div>
+          <div class="text-sm font-bold text-white mt-0.5">6B41 (TEPT-C)</div>
+          <div class="text-[11px] text-slate-400">Nova categoria diagnóstica</div>
+        </div>
+        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+          <div class="text-xs text-sky-400 font-semibold uppercase">Burnout</div>
+          <div class="text-sm font-bold text-white mt-0.5">QD85 Ocupacional</div>
+          <div class="text-[11px] text-slate-400">Síndrome de estresse crônico</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BARRA DE PESQUISA & FILTROS -->
+    <div class="glass-card rounded-2xl p-5 mb-8 shadow-xl">
+      <div class="flex flex-col sm:flex-row gap-3 items-center">
+        <div class="relative flex-1 w-full">
+          <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 text-lg">
+            🔍
+          </span>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Digite o código (ex: F84, 6A02, F41, 6A05) ou o nome (autismo, ansiedade, burnout, depressão)..." 
+            class="w-full pl-12 pr-4 py-3.5 bg-black/40 border border-white/15 rounded-xl text-white placeholder-slate-400 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+            oninput="filterCid()"
+          >
+        </div>
+        <button 
+          onclick="clearSearch()" 
+          class="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold border border-white/10 transition-colors w-full sm:w-auto text-center"
+        >
+          Limpar Filtro
+        </button>
+      </div>
+
+      <!-- BOTÕES DE CATEGORIAS -->
+      <div class="flex items-center gap-2 overflow-x-auto pt-4 pb-1 no-scrollbar text-xs">
+        <span class="text-slate-400 font-medium shrink-0">Categorias:</span>
+        <button onclick="setCategory('all')" class="cat-btn active px-3 py-1.5 rounded-lg font-semibold bg-purple-600 text-white shrink-0" data-cat="all">Todas</button>
+        <button onclick="setCategory('neuro')" class="cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0" data-cat="neuro">🧠 Neurodesenvolvimento (TEA/TDAH)</button>
+        <button onclick="setCategory('humor')" class="cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0" data-cat="humor">🌅 Humor & Depressão</button>
+        <button onclick="setCategory('ansiedade')" class="cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0" data-cat="ansiedade">⚡ Ansiedade & Pânico</button>
+        <button onclick="setCategory('trauma')" class="cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0" data-cat="trauma">🛡️ Trauma & Burnout</button>
+        <button onclick="setCategory('toc')" class="cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0" data-cat="toc">🔄 TOC & Relacionados</button>
+        <button onclick="setCategory('psicose')" class="cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0" data-cat="psicose">🌌 Psicoses & Esquizofrenia</button>
+        <button onclick="setCategory('personalidade')" class="cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0" data-cat="personalidade">👤 Personalidade (Modelo Dimensional)</button>
+      </div>
+    </div>
+
+    <!-- CONTADOR DE RESULTADOS -->
+    <div class="flex items-center justify-between text-xs text-slate-400 mb-4 px-1">
+      <div id="resultsCount">Exibindo todos os diagnósticos psiquiátricos selecionados</div>
+      <div class="text-slate-400 italic">Dica: clique em "Copiar para Laudo" para transferir os códigos para o seu prontuário</div>
+    </div>
+
+    <!-- LISTA DE CARTÕES DE EQUIVALÊNCIA -->
+    <div id="cidContainer" class="space-y-4">
+      <!-- Inserido dinamicamente via JavaScript -->
+    </div>
+
+    <!-- ÁREA PARA MÉDICOS & INTERCONSULTA CLÍNICA -->
+    <div class="mt-14 glass-card rounded-2xl p-6 sm:p-8 border-purple-500/20 relative overflow-hidden">
+      <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-3">
+          <span>🤝 Rede de Interconsulta & Encaminhamento</span>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mb-2">
+          Espaço de Diálogo com Colegas Médicos e Psicólogos
+        </h2>
+
+        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+          O <strong>Dr. Humberto Calicchio</strong> preza pela comunicação ética, clara e ágil com colegas que encaminham pacientes para avaliação psiquiátrica em Campinas. Realizamos consultas ampliadas de <strong>90 minutos</strong> com contrarreferência detalhada, alinhamento psicofarmacológico responsável e preservação estrita do vínculo terapêutico preexistente.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="https://wa.me/5519982505777?text=Ol%C3%A1%2C%20Dr.%20Humberto%2C%20sou%20colega%20m%C3%A9dico%2Fpsic%C3%B3logo%20e%20gostaria%20de%20alinhar%20um%20encaminhamento%20cl%C3%ADnico" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-purple-900/40 flex items-center gap-2">
+            <span>💬 Canal Direto para Discussão de Casos (WhatsApp)</span>
+          </a>
+          <a href="/" class="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 font-semibold text-xs sm:text-sm border border-white/10 transition-colors flex items-center gap-2">
+            <span>🏛️ Conhecer a Estrutura do Consultório no Guanabara</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ TÉCNICO -->
+  <footer class="border-t border-white/10 bg-[#07050a] py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="text-slate-400 font-medium">
+        Dr. Humberto Calicchio · CRM-SP 100468 · RQE 31774
+      </p>
+      <p class="mt-1 text-slate-500">
+        Graduação Médica e Residência em Psiquiatria no HC da UNICAMP · Formação em Psicanálise no Clin-A
+      </p>
+      <p class="mt-2 text-slate-600 text-[11px]">
+        Baseado na 11ª Revisão da Classificação Internacional de Doenças (CID-11 / ICD-11) da Organização Mundial da Saúde (OMS). Esta ferramenta possui finalidade clínica, consultiva e informativa para profissionais de saúde.
+      </p>
+    </div>
+  </footer>
+
+  <!-- NOTIFICAÇÃO FLUTUANTE DE CÓPIA -->
+  <div id="copyToast" class="fixed bottom-6 right-6 bg-emerald-600 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl transition-all transform translate-y-20 opacity-0 flex items-center gap-2 pointer-events-none z-50">
+    <span>✅</span>
+    <span id="copyToastMsg">Códigos copiados para a área de transferência!</span>
+  </div>
+
+  <!-- BANCO DE DADOS COMPLETO E LÓGICA DO CONVERSOR -->
+  <script>
+    const CID_DATABASE = [
+      // NEURODESENVOLVIMENTO
+      {
+        id: "tea",
+        category: "neuro",
+        categoryLabel: "Neurodesenvolvimento",
+        nome: "Transtorno do Espectro do Autismo (TEA)",
+        cid10Code: "F84.0 / F84.1 / F84.5",
+        cid10Name: "Transtornos Globais do Desenvolvimento (Autismo Infantil, Autismo Atípico, Síndrome de Asperger)",
+        cid11Code: "6A02",
+        cid11Name: "Transtorno do Espectro do Autismo (TEA)",
+        subtypes: [
+          { code: "6A02.0", desc: "TEA sem deficiência intelectual e com linguagem funcional leve/adequada (antigo Asperger / Autismo Nível 1 no adulto)" },
+          { code: "6A02.1", desc: "TEA com deficiência intelectual e com comprometimento da linguagem funcional" },
+          { code: "6A02.Y", desc: "Outro Transtorno do Espectro do Autismo especificado" },
+          { code: "6A02.Z", desc: "Transtorno do Espectro do Autismo não especificado" }
+        ],
+        mudancaClavicular: "Extinção da Síndrome de Asperger como entidade isolada. A CID-11 unificou todas as apresentações sob o conceito de espectro contínuo (6A02), utilizando especificadores dimensionais de capacidade intelectual e linguagem funcional. Essencial para laudos de adultos com diagnóstico tardio.",
+        tags: ["autismo", "asperger", "tea", "neurodivergente", "f84", "6a02", "adulto", "masking"]
+      },
+      {
+        id: "tdah",
+        category: "neuro",
+        categoryLabel: "Neurodesenvolvimento",
+        nome: "Transtorno de Déficit de Atenção e Hiperatividade (TDAH)",
+        cid10Code: "F90.0 / F90.1",
+        cid10Name: "Transtornos Hipercinéticos (Distúrbio da Atividade e da Atenção)",
+        cid11Code: "6A05",
+        cid11Name: "Transtorno de Déficit de Atenção e Hiperatividade (TDAH)",
+        subtypes: [
+          { code: "6A05.0", desc: "TDAH com apresentação predominantemente desatenta (comum em adultos e mulheres)" },
+          { code: "6A05.1", desc: "TDAH com apresentação predominantemente hiperativa-impulsiva" },
+          { code: "6A05.2", desc: "TDAH com apresentação combinada (desatenção + hiperatividade/impulsividade)" },
+          { code: "6A05.Z", desc: "TDAH não especificado" }
+        ],
+        mudancaClavicular: "A CID-11 abandonou a terminologia restrita de 'Transtorno Hipercinético da infância' e reconheceu explicitamente que o TDAH é uma condição do neurodesenvolvimento que persiste na vida adulta, com manifestação adaptada (hiperatividade mental, desregulação executiva e procrastinação crônica).",
+        tags: ["tdah", "foco", "atencao", "hiperatividade", "f90", "6a05", "procrastinacao", "adultos"]
+      },
+      {
+        id: "tourette",
+        category: "neuro",
+        categoryLabel: "Neurodesenvolvimento",
+        nome: "Síndrome de Tourette / Transtornos de Tiques",
+        cid10Code: "F95.2",
+        cid10Name: "Transtorno de Tiques Vocais e Motores Combinados (Gilles de la Tourette)",
+        cid11Code: "8A05.00",
+        cid11Name: "Síndrome de Tourette",
+        mudancaClavicular: "Migrou do capítulo F (psiquiátrico na infância) para o capítulo 08 da CID-11 (Doenças do Sistema Nervoso / Distúrbios do Movimento), reconhecendo sua base neurobiológica estriatal primária.",
+        tags: ["tourette", "tiques", "f95", "8a05"]
+      },
+
+      // ANSIEDADE & PÂNICO
+      {
+        id: "tag",
+        category: "ansiedade",
+        categoryLabel: "Ansiedade & Medo",
+        nome: "Transtorno de Ansiedade Generalizada (TAG)",
+        cid10Code: "F41.1",
+        cid10Name: "Ansiedade Generalizada",
+        cid11Code: "6B00",
+        cid11Name: "Transtorno de Ansiedade Generalizada",
+        mudancaClavicular: "Critérios diagnósticos mais objetivos quanto à preocupação excessiva e incontrolável abrangendo múltiplos domínios (saúde, família, finanças, trabalho) associada a tensão motora e hiperativação autonômica crônica por pelo menos vários meses.",
+        tags: ["ansiedade", "tag", "preocupacao", "f41", "6b00", "insonia", "tensao"]
+      },
+      {
+        id: "panico",
+        category: "ansiedade",
+        categoryLabel: "Ansiedade & Medo",
+        nome: "Transtorno de Pânico",
+        cid10Code: "F41.0",
+        cid10Name: "Transtorno de Pânico (Ansiedade Paroxística Episódica)",
+        cid11Code: "6B01",
+        cid11Name: "Transtorno de Pânico",
+        mudancaClavicular: "A CID-11 separou com total clareza o Transtorno de Pânico (6B01) da Agorafobia (6B02). Anteriormente, a CID-10 classificava 'Agorafobia com ou sem transtorno de pânico' sob F40.0. Agora são códigos independentes e comórbidos.",
+        tags: ["panico", "crise", "taquicardia", "f41", "6b01", "medo"]
+      },
+      {
+        id: "agorafobia",
+        category: "ansiedade",
+        categoryLabel: "Ansiedade & Medo",
+        nome: "Agorafobia",
+        cid10Code: "F40.0",
+        cid10Name: "Agorafobia",
+        cid11Code: "6B02",
+        cid11Name: "Agorafobia",
+        mudancaClavicular: "Classificada como entidade diagnóstica autônoma (6B02). Definida pelo medo marcante em situações das quais o escape pode ser difícil ou ajuda inacessível (transporte público, multidões, espaços abertos ou fechados).",
+        tags: ["agorafobia", "espacos", "multidao", "f40", "6b02"]
+      },
+      {
+        id: "fobia-social",
+        category: "ansiedade",
+        categoryLabel: "Ansiedade & Medo",
+        nome: "Transtorno de Ansiedade Social (Fobia Social)",
+        cid10Code: "F40.1",
+        cid10Name: "Fobias Sociais",
+        cid11Code: "6B04",
+        cid11Name: "Transtorno de Ansiedade Social",
+        mudancaClavicular: "A terminologia oficial da OMS adotou 'Transtorno de Ansiedade Social' em substituição a 'Fobia Social', refletindo a dimensão pervasiva do receio do escrutínio alheio e constrangimento interpessoal.",
+        tags: ["fobia social", "timidez", "ansiedade social", "f40", "6b04"]
+      },
+
+      // HUMOR & DEPRESSÃO
+      {
+        id: "depressao-unica",
+        category: "humor",
+        categoryLabel: "Transtornos do Humor",
+        nome: "Episódio Depressivo Único",
+        cid10Code: "F32",
+        cid10Name: "Episódios Depressivos (F32.0 Leve, F32.1 Moderado, F32.2 Grave sem sintomas psicóticos, F32.3 Grave com sintomas psicóticos)",
+        cid11Code: "6A70",
+        cid11Name: "Transtorno Depressivo de Episódio Único",
+        subtypes: [
+          { code: "6A70.0", desc: "Episódio único, em remissão total" },
+          { code: "6A70.1", desc: "Episódio único, leve" },
+          { code: "6A70.2", desc: "Episódio único, moderado, sem sintomas psicóticos" },
+          { code: "6A70.3", desc: "Episódio único, moderado, com sintomas psicóticos" },
+          { code: "6A70.4", desc: "Episódio único, grave, sem sintomas psicóticos" },
+          { code: "6A70.5", desc: "Episódio único, grave, com sintomas psicóticos" }
+        ],
+        mudancaClavicular: "Inclusão de especificadores clínicos sofisticados para presença de 'Sintomas Ansiosos Proeminentes' e 'Episódio Misto', fundamentais para orientar o uso de antidepressivos e estabilizadores.",
+        tags: ["depressao", "tristeza", "humor", "f32", "6a70", "anedonia"]
+      },
+      {
+        id: "depressao-recorrente",
+        category: "humor",
+        categoryLabel: "Transtornos do Humor",
+        nome: "Transtorno Depressivo Recorrente",
+        cid10Code: "F33",
+        cid10Name: "Transtorno Depressivo Recorrente",
+        cid11Code: "6A71",
+        cid11Name: "Transtorno Depressivo Recorrente",
+        mudancaClavicular: "Padronização detalhada do estado atual (em remissão parcial, completa, episódio atual leve, moderado ou grave com ou sem psicose). Facilita laudos periciais e judiciais.",
+        tags: ["depressao recorrente", "recaida", "f33", "6a71"]
+      },
+      {
+        id: "distimia",
+        category: "humor",
+        categoryLabel: "Transtornos do Humor",
+        nome: "Distimia (Transtorno Depressivo Persistente)",
+        cid10Code: "F34.1",
+        cid10Name: "Distimia",
+        cid11Code: "6A72",
+        cid11Name: "Transtorno Distímico",
+        mudancaClavicular: "Depressão de longa duração (mínimo de 2 anos no adulto) com humor cronicamente deprimido na maior parte dos dias, sem preencher critérios contínuos de gravidade maior.",
+        tags: ["distimia", "humor cronico", "f34", "6a72"]
+      },
+      {
+        id: "bipolar-1",
+        category: "humor",
+        categoryLabel: "Transtornos do Humor",
+        nome: "Transtorno Bipolar Tipo I",
+        cid10Code: "F31.0 a F31.9",
+        cid10Name: "Transtorno Afetivo Bipolar",
+        cid11Code: "6A60",
+        cid11Name: "Transtorno Bipolar Tipo I",
+        mudancaClavicular: "A CID-11 formalizou a separação inequívoca entre Bipolar I (6A60 - exige pelo menos um episódio maníaco pleno) e Bipolar II (6A61 - hipomania e depressão maior), alinhando a OMS ao consenso internacional.",
+        tags: ["bipolar", "mania", "humor", "f31", "6a60", "euforia"]
+      },
+      {
+        id: "bipolar-2",
+        category: "humor",
+        categoryLabel: "Transtornos do Humor",
+        nome: "Transtorno Bipolar Tipo II",
+        cid10Code: "F31.8",
+        cid10Name: "Outros Transtornos Afetivos Bipolares",
+        cid11Code: "6A61",
+        cid11Name: "Transtorno Bipolar Tipo II",
+        mudancaClavicular: "Na CID-10, o Bipolar II não tinha código primário próprio (era enquadrado como F31.8). Na CID-11 ganhou código autônomo (6A61), corrigindo uma das maiores falhas diagnósticas anteriores.",
+        tags: ["bipolar 2", "hipomania", "f31", "6a61"]
+      },
+
+      // TRAUMA & BURNOUT
+      {
+        id: "tept-c",
+        category: "trauma",
+        categoryLabel: "Estresse & Trauma",
+        nome: "TEPT Complexo (Transtorno de Estresse Pós-Traumático Complexo)",
+        cid10Code: "Sem equivalente específico (F43.1 / F62.0)",
+        cid10Name: "Anteriormente forçado como TEPT simples ou 'Alteração permanente de personalidade pós-catástrofe'",
+        cid11Code: "6B41",
+        cid11Name: "Transtorno de Estresse Pós-Traumático Complexo (TEPT-C)",
+        mudancaClavicular: "✨ UMA DAS MAIORES INOVAÇÕES DA CID-11! Reconhece os traumas crônicos, repetitivos ou relacionais (infância violenta, abuso prolongado, violência doméstica). Além da tríade clássica do TEPT (revivescência, esquiva e hipervigilância), exige a presença de perturbações graves na auto-organização: 1) Desregulação afetiva severa; 2) Crenças de desvalia e culpa profunda; 3) Dificuldades interpessoais persistentes.",
+        tags: ["tept complexo", "cptsd", "trauma infantil", "abuso", "6b41", "f43"]
+      },
+      {
+        id: "tept",
+        category: "trauma",
+        categoryLabel: "Estresse & Trauma",
+        nome: "Transtorno de Estresse Pós-Traumático (TEPT)",
+        cid10Code: "F43.1",
+        cid10Name: "Estado de 'Stress' Pós-Traumático",
+        cid11Code: "6B40",
+        cid11Name: "Transtorno de Estresse Pós-Traumático",
+        mudancaClavicular: "Critérios simplificados e mais específicos: requer revivescência do trauma no presente (pesadelos, flashbacks), evitação deliberada de gatilhos e senso persistente de ameaça iminente (hipervigilância).",
+        tags: ["tept", "trauma", "flashback", "f43", "6b40"]
+      },
+      {
+        id: "burnout",
+        category: "trauma",
+        categoryLabel: "Estresse & Trabalho",
+        nome: "Síndrome de Burnout (Esgotamento Profissional)",
+        cid10Code: "Z73.0",
+        cid10Name: "Esgotamento (Problemas relacionados com a organização do modo de vida)",
+        cid11Code: "QD85",
+        cid11Name: "Síndrome de Burnout",
+        mudancaClavicular: "A CID-11 delimitou o Burnout com rigor: NÃO é uma doença mental primária, mas um fenômeno ocupacional decorrente de estresse crônico no local de trabalho não gerenciado com sucesso. Tríade: 1) Sentimento de exaustão de energia; 2) Distanciamento mental/cinismo em relação ao trabalho; 3) Queda da eficácia profissional. Não deve ser aplicado a experiências fora do âmbito ocupacional.",
+        tags: ["burnout", "trabalho", "esgotamento", "z73", "qd85", "fadiga"]
+      },
+      {
+        id: "ajustamento",
+        category: "trauma",
+        categoryLabel: "Estresse & Trauma",
+        nome: "Transtorno de Adaptação (Reação de Ajustamento)",
+        cid10Code: "F43.2",
+        cid10Name: "Transtornos de Adaptação",
+        cid11Code: "6B43",
+        cid11Name: "Transtorno de Adaptação",
+        mudancaClavicular: "Reação mal-adaptativa a estressores psicossociais identificáveis (luto complicado não persistente, divórcio, doença grave, desemprego), caracterizada por ruminação ou preocupação excessiva e falha na adaptação funcional.",
+        tags: ["luto", "divorcio", "estresse", "f43", "6b43", "adaptacao"]
+      },
+
+      // TOC & TRANSTORNOS RELACIONADOS
+      {
+        id: "toc",
+        category: "toc",
+        categoryLabel: "TOC & Espectro",
+        nome: "Transtorno Obsessivo-Compulsivo (TOC)",
+        cid10Code: "F42",
+        cid10Name: "Transtorno Obsessivo-Compulsivo",
+        cid11Code: "6B20",
+        cid11Name: "Transtorno Obsessivo-Compulsivo",
+        mudancaClavicular: "O TOC foi desmembrado dos transtornos de ansiedade e ganhou um capítulo exclusivo na CID-11: 'Transtorno Obsessivo-Compulsivo e Transtornos Relacionados'. Inclui especificador de insight (com insight preservado vs com insight pobre ou ausente).",
+        tags: ["toc", "obsessao", "compulsao", "f42", "6b20", "rituais"]
+      },
+      {
+        id: "acumulacao",
+        category: "toc",
+        categoryLabel: "TOC & Espectro",
+        nome: "Transtorno de Acumulação (Hoarding Disorder)",
+        cid10Code: "Sem código específico na CID-10",
+        cid10Name: "Tratado genericamente como variante de TOC ou demência",
+        cid11Code: "6B24",
+        cid11Name: "Transtorno de Acumulação",
+        mudancaClavicular: "Nova entidade autônoma da CID-11. Dificuldade persistente em descartar ou se separar de pertences, independentemente do seu valor real, resultando em acúmulo que compromete o uso seguro dos espaços da residência.",
+        tags: ["acumulacao", "hoarding", "desapego", "6b24"]
+      },
+      {
+        id: "dismorfico",
+        category: "toc",
+        categoryLabel: "TOC & Espectro",
+        nome: "Transtorno Dismórfico Corporal",
+        cid10Code: "F45.2",
+        cid10Name: "Transtorno Hipocondríaco (Dismorfofobia)",
+        cid11Code: "6B21",
+        cid11Name: "Transtorno Dismórfico Corporal",
+        mudancaClavicular: "Retirado do grupo de transtornos somatoformes (hipocondria) e realocado sob o espectro obsessivo-compulsivo, refletindo o caráter de pensamentos intrusivos e comportamentos repetitivos de checagem do espelho.",
+        tags: ["dismorfia", "imagem corporal", "f45", "6b21"]
+      },
+
+      // PSICOSES & ESQUIZOFRENIA
+      {
+        id: "esquizofrenia",
+        category: "psicose",
+        categoryLabel: "Espectro da Esquizofrenia",
+        nome: "Esquizofrenia",
+        cid10Code: "F20 (F20.0 Paranoide, F20.1 Hebefrênica, F20.2 Catatônica)",
+        cid10Name: "Esquizofrenia e seus subtipos clássicos",
+        cid11Code: "6A20",
+        cid11Name: "Esquizofrenia",
+        mudancaClavicular: "🚨 EXTINÇÃO DOS SUBTIPOS CLÁSSICOS! A CID-11 eliminou os antigos subtipos rígidos (paranoide, hebefrênica/desorganizada, catatônica, indiferenciada), pois demonstravam baixa estabilidade longitudinal. A avaliação agora é dimensional por especificadores de sintomas (positivos, negativos, cognitivos, humor e psicomotores).",
+        tags: ["esquizofrenia", "delirio", "alucinacao", "f20", "6a20", "psicose"]
+      },
+      {
+        id: "esquizoafetivo",
+        category: "psicose",
+        categoryLabel: "Espectro da Esquizofrenia",
+        nome: "Transtorno Esquizoafetivo",
+        cid10Code: "F25",
+        cid10Name: "Transtornos Esquizoafetivos",
+        cid11Code: "6A21",
+        cid11Name: "Transtorno Esquizoafetivo",
+        mudancaClavicular: "Exige que episódios de humor plenos (depressivo ou maníaco) ocorram simultaneamente a sintomas nucleares de esquizofrenia na maior parte da duração total da fase ativa.",
+        tags: ["esquizoafetivo", "humor psicotico", "f25", "6a21"]
+      },
+
+      // PERSONALIDADE (REFORMULAÇÃO RADICAL)
+      {
+        id: "personalidade-dimensional",
+        category: "personalidade",
+        categoryLabel: "Transtornos da Personalidade",
+        nome: "Transtorno da Personalidade (Modelo Dimensional CID-11)",
+        cid10Code: "F60 (F60.0 Paranoide, F60.1 Esquizoide, F60.3 Borderline, F60.4 Histriônica, F60.5 Anancástica, F60.6 Evitativa)",
+        cid10Name: "Transtornos Específicos da Personalidade (Categorias Rígidas)",
+        cid11Code: "6D10",
+        cid11Name: "Transtorno da Personalidade (Classificado por Gravidade + Domínios de Traço)",
+        subtypes: [
+          { code: "6D10.0", desc: "Transtorno de Personalidade Leve" },
+          { code: "6D10.1", desc: "Transtorno de Personalidade Moderado" },
+          { code: "6D10.2", desc: "Transtorno de Personalidade Grave" },
+          { code: "6D11", desc: "Padrão Borderline (Qualificador Específico de Limítrofe)" },
+          { code: "6D11.0", desc: "Domínio de Traço: Afetividade Negativa" },
+          { code: "6D11.1", desc: "Domínio de Traço: Desapego / Distanciamento" },
+          { code: "6D11.2", desc: "Domínio de Traço: Dissociabilidade (Antissocial / Psicopatia)" },
+          { code: "6D11.3", desc: "Domínio de Traço: Desinibição / Impulsividade" },
+          { code: "6D11.4", desc: "Domínio de Traço: Anancastia (Perfeccionismo rígido e controle)" }
+        ],
+        mudancaClavicular: "🔬 A MAIOR MUDANÇA CONCEITUAL DA CID-11! Os 10 subtipos clássicos rígidos da CID-10 foram ABOLIDOS (exceto o padrão Borderline 6D11 como especificador). O diagnóstico agora é feito em 2 etapas científicas: 1º Estágio: Avalia-se o GRAU DE DISFUNÇÃO (Leve, Moderada ou Grave em identidade, autoconceito e relações interpessoais); 2º Estágio: Mapeiam-se os DOMÍNIOS DE TRAÇO proeminentes.",
+        tags: ["borderline", "personalidade", "f60", "6d10", "6d11", "narcisista", "anancastico", "impulsividade"]
+      }
+    ];
+
+    let currentCategory = 'all';
+
+    function renderCidList(items) {
+      const container = document.getElementById('cidContainer');
+      const counter = document.getElementById('resultsCount');
+
+      counter.innerHTML = `Exibindo <strong>${items.length}</strong> diagnóstico(s) psiquiátrico(s) na CID-11`;
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card rounded-2xl p-10 text-center text-slate-400">
+            <div class="text-3xl mb-3">🔍</div>
+            <div class="text-base font-bold text-white mb-1">Nenhum diagnóstico encontrado</div>
+            <div class="text-xs">Tente buscar por código da CID-10 (ex: F84, F90, F32), código da CID-11 (ex: 6A02, 6A05, QD85) ou pelo nome do quadro clínico.</div>
+            <button onclick="clearSearch()" class="mt-4 px-4 py-2 rounded-xl bg-purple-600 text-white text-xs font-semibold">Limpar Filtros de Busca</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(item => {
+        const subtypesHtml = item.subtypes ? `
+          <div class="mt-4 pt-3 border-t border-white/10">
+            <div class="text-xs font-semibold text-purple-300 uppercase tracking-wider mb-2">Subtipos & Especificadores na CID-11:</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              ${item.subtypes.map(st => `
+                <div class="p-2 rounded-lg bg-black/40 border border-white/5 flex items-start gap-2">
+                  <span class="code-mono font-bold text-purple-300 bg-purple-900/40 px-1.5 py-0.5 rounded shrink-0">${st.code}</span>
+                  <span class="text-slate-300">${st.desc}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : '';
+
+        return `
+          <div class="glass-card rounded-2xl p-6 transition-all hover:shadow-2xl hover:shadow-purple-950/20">
+            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 mb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap mb-2">
+                  <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30 uppercase tracking-wide">
+                    ${item.categoryLabel}
+                  </span>
+                  <span class="text-[11px] text-slate-400 font-mono">
+                    Ref: OMS ICD-11
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  ${item.nome}
+                </h3>
+              </div>
+
+              <!-- BOTÃO DE COPIAR -->
+              <button 
+                onclick="copyCidCode('${item.nome}', '${item.cid10Code}', '${item.cid11Code}')" 
+                class="self-start px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all hover:border-purple-400 shrink-0"
+                title="Copiar códigos formatados para colar no prontuário médico ou laudo"
+              >
+                <span>📋</span>
+                <span>Copiar para Laudo / Prontuário</span>
+              </button>
+            </div>
+
+            <!-- COMPARATIVO LADO A LADO CID-10 vs CID-11 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-4">
+              <!-- BLOCO CID-10 -->
+              <div class="p-4 rounded-xl bg-black/50 border border-red-500/20">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">Classificação Anterior (CID-10)</span>
+                  <span class="text-[10px] text-slate-400">Em descontinuação</span>
+                </div>
+                <div class="code-mono text-lg sm:text-xl font-bold text-white mb-1">
+                  ${item.cid10Code}
+                </div>
+                <div class="text-xs text-slate-300 leading-snug">
+                  ${item.cid10Name}
+                </div>
+              </div>
+
+              <!-- BLOCO CID-11 -->
+              <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-500/40 shadow-inner shadow-purple-900/10">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-semibold text-purple-300 uppercase tracking-wide">Nova Nomenclatura (CID-11 / OMS)</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold">Oficial OMS</span>
+                </div>
+                <div class="code-mono text-lg sm:text-xl font-bold text-emerald-300 mb-1">
+                  ${item.cid11Code}
+                </div>
+                <div class="text-xs text-slate-200 font-medium leading-snug">
+                  ${item.cid11Name}
+                </div>
+              </div>
+            </div>
+
+            <!-- O QUE MUDOU NA CID-11 -->
+            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 text-xs text-slate-300 leading-relaxed">
+              <strong class="text-purple-300 font-semibold block mb-1">💡 Particularidade Clínica & O que mudou na CID-11:</strong>
+              ${item.mudancaClavicular}
+            </div>
+
+            <!-- SUBTIPOS -->
+            ${subtypesHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterCid() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+      const filtered = CID_DATABASE.filter(item => {
+        const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+        if (!matchesCategory) return false;
+
+        if (!query) return true;
+
+        const inName = item.nome.toLowerCase().includes(query);
+        const inCid10 = item.cid10Code.toLowerCase().includes(query) || item.cid10Name.toLowerCase().includes(query);
+        const inCid11 = item.cid11Code.toLowerCase().includes(query) || item.cid11Name.toLowerCase().includes(query);
+        const inNote = item.mudancaClavicular.toLowerCase().includes(query);
+        const inTags = item.tags && item.tags.some(t => t.includes(query));
+        const inSubtypes = item.subtypes && item.subtypes.some(s => s.code.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query));
+
+        return inName || inCid10 || inCid11 || inNote || inTags || inSubtypes;
+      });
+
+      renderCidList(filtered);
+    }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = 'cat-btn px-3 py-1.5 rounded-lg font-semibold bg-purple-600 text-white shrink-0';
+        } else {
+          btn.className = 'cat-btn px-3 py-1.5 rounded-lg font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 shrink-0';
+        }
+      });
+      filterCid();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      setCategory('all');
+    }
+
+    async function copyCidCode(name, cid10, cid11) {
+      const textToCopy = `${name} | CID-11: ${cid11} (Equivalência CID-10: ${cid10})`;
+      try {
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(textToCopy);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = textToCopy;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        showToast(`Copiado: "${textToCopy}"`);
+      } catch (e) {
+        showToast('Código copiado com sucesso!');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('copyToast');
+      const toastMsg = document.getElementById('copyToastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    // Inicialização ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCidList(CID_DATABASE);
+
+      // Leitura de parâmetro de busca na URL (ex: ?q=autismo ou ?cat=neuro)
+      const urlParams = new URLSearchParams(window.location.search);
+      const q = urlParams.get('q');
+      const cat = urlParams.get('cat');
+      if (cat) setCategory(cat);
+      if (q) {
+        document.getElementById('searchInput').value = q;
+        filterCid();
+      }
+    });
+  </script>
+</body>
+</html>

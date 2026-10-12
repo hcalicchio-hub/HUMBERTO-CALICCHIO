@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload das Fotos Oficiais — Dr. Humberto Calicchio</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #08060c;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 32px 16px 60px 16px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      color: #c084fc;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      max-width: 720px;
+      margin: 0 auto 16px auto;
+    }
+    .instruction-box {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      font-size: 14px;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 22px;
+      margin-bottom: 32px;
+    }
+    .slot-card {
+      background: rgba(18, 16, 28, 0.85);
+      border: 2px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .slot-card:hover {
+      border-color: rgba(168, 85, 247, 0.5);
+      background: rgba(22, 19, 36, 0.95);
+    }
+    .slot-card.drag-over {
+      border-color: #a855f7 !important;
+      background: rgba(168, 85, 247, 0.15) !important;
+      transform: scale(1.02);
+    }
+    .slot-header {
+      margin-bottom: 12px;
+    }
+    .slot-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: #a855f7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .slot-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+    .slot-desc {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+    .preview-box {
+      width: 100%;
+      height: 190px;
+      border-radius: 12px;
+      background: #0d0c14;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .current-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      color: #38bdf8;
+      font-weight: 600;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .current-badge.updated {
+      color: #4ade80;
+      border-color: rgba(74, 222, 128, 0.4);
+    }
+    .file-input {
+      display: none;
+    }
+    .upload-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      background: #a855f7;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      text-align: center;
+    }
+    .upload-btn:hover {
+      background: #9333ea;
+    }
+    .upload-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .drag-hint {
+      text-align: center;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #16a34a;
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: none;
+      z-index: 1000;
+    }
+    .actions-bar {
+      text-align: center;
+      padding: 24px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .return-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #c084fc;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .return-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">📸 Fotos Oficiais Reais do Consultório</div>
+      <h1>Atualização Imediata das Fotos do Site</h1>
+      <p class="subtitle">
+        Dr. Humberto, suas fotos estão <strong>perfeitas e maravilhosas</strong>! Basta arrastar cada foto do seu computador diretamente para o cartão correspondente ou clicar no botão roxo.
+      </p>
+    </header>
+
+    <div class="instruction-box">
+      <span style="font-size: 28px;">💡</span>
+      <div>
+        <strong>Dica fácil no Mac:</strong> Você pode simplesmente <strong>arrastar e soltar</strong> cada arquivo do seu computador em cima do cartão roxo correspondente, ou clicar em <em>"Selecionar Foto..."</em> e escolher em <em>"Recentes"</em> (já que você acabou de selecioná-las). O sistema converte automaticamente em Full HD otimizado!
+      </div>
+    </div>
+
+    <div class="slots-grid">
+
+      <!-- Slot 1: Fachada & Edifício -->
+      <div class="slot-card" id="card-slot-fachada"
+           ondragover="handleDragOver(event, 'fachada')"
+           ondragleave="handleDragLeave(event, 'fachada')"
+           ondrop="handleDrop(event, 'fachada')">
+        <div>
+          <div class="slot-header">
+            <div class="slot-num">Foto 1 · Edifício Exterior</div>
+            <div class="slot-title">Fachada do Prime Office Plaza</div>
+            <div class="slot-desc">A foto que você enviou mostrando a fachada envidraçada com carros na frente, palmeiras e céu azul.</div>
+          </div>
+          <div class="preview-box">
+            <span class="current-badge" id="badge-fachada">Em uso</span>
+            <img id="img-fachada" src="/assets/consultorio/dr-humberto-foto-1-fachada-prime.webp?v=real-100percent-20261012" onerror="this.src='/assets/recepcao-pe-direito-triplo.webp';">
+          </div>
+        </div>
+        <div>
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/heic" id="file-fachada" class="file-input" onchange="uploadPhoto('fachada')">
+          <button class="upload-btn" onclick="document.getElementById('file-fachada').click()" id="btn-fachada">
+            📤 Selecionar Foto da Fachada
+          </button>
+          <div class="drag-hint">ou arraste o arquivo e solte aqui</div>
+        </div>
+      </div>
+
+      <!-- Slot 2: Hall & Recepção Nobre -->
+      <div class="slot-card" id="card-slot-recepcao"
+           ondragover="handleDragOver(event, 'recepcao')"
+           ondragleave="handleDragLeave(event, 'recepcao')"
+           ondrop="handleDrop(event, 'recepcao')">
+        <div>
+          <div class="slot-header">
+            <div class="slot-num">Foto 2 · Recepção Comum</div>
+            <div class="slot-title">Recepção com Pé-Direito Triplo (IMG_6217.jpeg)</div>
+            <div class="slot-desc">A foto tirada do mezanino superior mostrando a recepção, recepcionista de camisa branca e poltronas.</div>
+          </div>
+          <div class="preview-box">
+            <span class="current-badge" id="badge-recepcao">Em uso</span>
+            <img id="img-recepcao" src="/assets/recepcao-pe-direito-triplo.webp?v=real-1791770878">
+          </div>
+        </div>
+        <div>
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/heic" id="file-recepcao" class="file-input" onchange="uploadPhoto('recepcao')">
+          <button class="upload-btn" onclick="document.getElementById('file-recepcao').click()" id="btn-recepcao">
+            📤 Selecionar Foto da Recepção
+          </button>
+          <div class="drag-hint">ou arraste o arquivo e solte aqui</div>
+        </div>
+      </div>
+
+      <!-- Slot 3: Escuta & Poltronas de Conversa -->
+      <div class="slot-card" id="card-slot-poltronas"
+           ondragover="handleDragOver(event, 'poltronas')"
+           ondragleave="handleDragLeave(event, 'poltronas')"
+           ondrop="handleDrop(event, 'poltronas')">
+        <div>
+          <div class="slot-header">
+            <div class="slot-num">Foto 3 · Escuta Terapêutica</div>
+            <div class="slot-title">Poltronas de Atendimento (IMG_6987.jpeg)</div>
+            <div class="slot-desc">A foto acolhedora das duas poltronas em veludo/capitonê com a escultura na mesa de centro e plantas.</div>
+          </div>
+          <div class="preview-box">
+            <span class="current-badge" id="badge-poltronas">Em uso</span>
+            <img id="img-poltronas" src="/assets/consultorio/dr-humberto-foto-2-poltronas-escuta.webp?v=real-100percent-20261012">
+          </div>
+        </div>
+        <div>
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/heic" id="file-poltronas" class="file-input" onchange="uploadPhoto('poltronas')">
+          <button class="upload-btn" onclick="document.getElementById('file-poltronas').click()" id="btn-poltronas">
+            📤 Selecionar Foto das Poltronas
+          </button>
+          <div class="drag-hint">ou arraste o arquivo e solte aqui</div>
+        </div>
+      </div>
+
+      <!-- Slot 4: Consultório & Mesa Clínica -->
+      <div class="slot-card" id="card-slot-mesa"
+           ondragover="handleDragOver(event, 'mesa')"
+           ondragleave="handleDragLeave(event, 'mesa')"
+           ondrop="handleDrop(event, 'mesa')">
+        <div>
+          <div class="slot-header">
+            <div class="slot-num">Foto 4 · Mesa Médica & Estudos</div>
+            <div class="slot-title">Mesa Clínica & Consultório (IMG_7116.jpeg)</div>
+            <div class="slot-desc">A foto da sua mesa com cadeira Herman Miller Aeron, candelabro e retratos de Freud e Melanie Klein.</div>
+          </div>
+          <div class="preview-box">
+            <span class="current-badge" id="badge-mesa">Em uso</span>
+            <img id="img-mesa" src="/assets/consultorio/dr-humberto-foto-3-mesa-atendimento.webp?v=real-100percent-20261012">
+          </div>
+        </div>
+        <div>
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/heic" id="file-mesa" class="file-input" onchange="uploadPhoto('mesa')">
+          <button class="upload-btn" onclick="document.getElementById('file-mesa').click()" id="btn-mesa">
+            📤 Selecionar Foto da Mesa
+          </button>
+          <div class="drag-hint">ou arraste o arquivo e solte aqui</div>
+        </div>
+      </div>
+
+      <!-- Slot 5: Ambiente Geral / Visão Ampla -->
+      <div class="slot-card" id="card-slot-ambiente"
+           ondragover="handleDragOver(event, 'ambiente')"
+           ondragleave="handleDragLeave(event, 'ambiente')"
+           ondrop="handleDrop(event, 'ambiente')">
+        <div>
+          <div class="slot-header">
+            <div class="slot-num">Foto 5 · Ambiência & Divã</div>
+            <div class="slot-title">Visão Panorâmica com Divã & Mesa (IMG_7116.jpeg)</div>
+            <div class="slot-desc">A vista geral belíssima com o lustre de cristal, o divã com manta à esquerda e o jardim de inverno ao fundo.</div>
+          </div>
+          <div class="preview-box">
+            <span class="current-badge" id="badge-ambiente">Em uso</span>
+            <img id="img-ambiente" src="/assets/consultorio/dr-humberto-foto-4-ambiente-clinico.webp?v=real-100percent-20261012">
+          </div>
+        </div>
+        <div>
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/heic" id="file-ambiente" class="file-input" onchange="uploadPhoto('ambiente')">
+          <button class="upload-btn" onclick="document.getElementById('file-ambiente').click()" id="btn-ambiente">
+            📤 Selecionar Visão Geral da Sala
+          </button>
+          <div class="drag-hint">ou arraste o arquivo e solte aqui</div>
+        </div>
+      </div>
+
+      <!-- Slot 6: Detalhes & Ambientação do Consultório -->
+      <div class="slot-card" id="card-slot-biblioteca"
+           ondragover="handleDragOver(event, 'biblioteca')"
+           ondragleave="handleDragLeave(event, 'biblioteca')"
+           ondrop="handleDrop(event, 'biblioteca')">
+        <div>
+          <div class="slot-header">
+            <div class="slot-num">Foto 6 · Detalhes do Espaço</div>
+            <div class="slot-title">Ambientação & Singularidade</div>
+            <div class="slot-desc">Sua foto de detalhes e ambientação do consultório. 100% autêntica, sem marcas comerciais e perfeitamente integrada!</div>
+          </div>
+          <div class="preview-box">
+            <span class="current-badge" id="badge-biblioteca">Em uso</span>
+            <img id="img-biblioteca" src="/assets/consultorio/dr-humberto-foto-5-biblioteca-estudos.webp?v=real-100percent-20261012">
+          </div>
+        </div>
+        <div>
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/heic" id="file-biblioteca" class="file-input" onchange="uploadPhoto('biblioteca')">
+          <button class="upload-btn" onclick="document.getElementById('file-biblioteca').click()" id="btn-biblioteca">
+            📤 Alterar Foto de Detalhes
+          </button>
+          <div class="drag-hint">ou arraste o arquivo e solte aqui</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="actions-bar">
+      <a href="/" class="return-link">← Voltar para o Site Oficial do Consultório</a>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Foto atualizada com sucesso!</div>
+
+  <script>
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.background = isError ? '#ef4444' : '#16a34a';
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 4000);
+    }
+
+    function handleDragOver(e, slot) {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = document.getElementById('card-slot-' + slot);
+      if (card) card.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e, slot) {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = document.getElementById('card-slot-' + slot);
+      if (card) card.classList.remove('drag-over');
+    }
+
+    function handleDrop(e, slot) {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = document.getElementById('card-slot-' + slot);
+      if (card) card.classList.remove('drag-over');
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        processAndUploadFile(slot, e.dataTransfer.files[0]);
+      }
+    }
+
+    function uploadPhoto(slot) {
+      const input = document.getElementById('file-' + slot);
+      if (!input.files || input.files.length === 0) return;
+      processAndUploadFile(slot, input.files[0]);
+    }
+
+    function processAndUploadFile(slot, file) {
+      const btn = document.getElementById('btn-' + slot);
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Processando & Convertendo...';
+
+      // Mostra preview instantâneo imediatamente na interface
+      try {
+        const localPreviewUrl = URL.createObjectURL(file);
+        const img = document.getElementById('img-' + slot);
+        if (img) img.src = localPreviewUrl;
+      } catch (e) {}
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const base64Data = e.target.result;
+          try {
+            localStorage.setItem('dr_calicchio_custom_' + slot, base64Data);
+          } catch(storageErr) {}
+
+          const res = await fetch('/api/admin/upload-consultorio', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              slot: slot,
+              filename: file.name,
+              dataUrl: base64Data
+            })
+          });
+
+          const json = await res.json();
+          if (json.success) {
+            showToast('✅ Foto atualizada com sucesso no site!');
+            const img = document.getElementById('img-' + slot);
+            if (img) {
+              img.src = json.url + '?t=' + (json.timestamp || Date.now());
+            }
+            const badge = document.getElementById('badge-' + slot);
+            if (badge) {
+              badge.textContent = '✅ Atualizada';
+              badge.classList.add('updated');
+            }
+          } else {
+            showToast('❌ Erro: ' + (json.error || 'Falha ao processar imagem'), true);
+          }
+        } catch (err) {
+          showToast('❌ Erro de conexão com o servidor', true);
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+          const input = document.getElementById('file-' + slot);
+          if (input) input.value = '';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>

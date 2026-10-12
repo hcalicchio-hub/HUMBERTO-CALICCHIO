@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fotos do Consultório para Substituição — Dr. Humberto Calicchio</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #08060c;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 32px 16px 60px 16px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      color: #c084fc;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 15px;
+      max-width: 720px;
+      margin: 0 auto 16px auto;
+    }
+    .callout {
+      background: rgba(30, 27, 75, 0.6);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 32px;
+      color: #e2e8f0;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: rgba(18, 16, 28, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      border-color: rgba(168, 85, 247, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    }
+    .img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background: #0d0c14;
+      overflow: hidden;
+    }
+    .img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .tag.replace {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: #a855f7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .card-instruction {
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 3px solid #a855f7;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .footer-actions {
+      text-align: center;
+      padding: 28px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: #a855f7;
+      color: #ffffff;
+    }
+    .btn:hover {
+      background: #9333ea;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">📸 Guia Visual Direto</div>
+      <h1>Fotos Atuais do Consultório para Substituição</h1>
+      <p class="subtitle">
+        Dr. Humberto, veja abaixo as imagens que estão atualmente no site. Para substituir qualquer uma delas, você não precisa fazer nada pelo navegador: basta enviar a sua foto correspondente diretamente no nosso chat!
+      </p>
+      <div class="callout">
+        <span style="font-size: 26px;">💬</span>
+        <div style="text-align: left;">
+          <strong>Como nos enviar suas fotos reais:</strong><br />
+          No chat ao lado, clique no botão de anexo (ou arraste a foto para a caixa de mensagem) e escreva: <em>«Esta é a foto 1 (Recepção)»</em>, <em>«Esta é a foto 2 (Poltronas)»</em>, etc. Eu farei a substituição e a otimização imediatamente!
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- Foto 1 -->
+      <div class="card">
+        <div class="img-wrapper">
+          <span class="tag replace">Substituir</span>
+          <img src="/assets/recepcao-pe-direito-triplo.jpg?v=1791766973709" alt="Recepção e Hall Nobre">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-num">Espaço 1 · Recepção Comum</div>
+            <h2 class="card-title">Recepção do Prime Office Plaza</h2>
+            <p class="card-desc">
+              <strong>Como está hoje:</strong> Imagem do amplo hall de entrada do edifício com pé-direito triplo de 9m, poltronas e iluminação natural.<br />
+              <strong>Sua foto real:</strong> Foto tirada no hall de entrada do condomínio / recepção do prédio ou entrada da sua sala.
+            </p>
+          </div>
+          <div class="card-instruction">
+            Envie no chat: <em>«Esta é a foto da Recepção»</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto 2 -->
+      <div class="card">
+        <div class="img-wrapper">
+          <span class="tag replace">Substituir</span>
+          <img src="/assets/consultorio/dr-humberto-foto-2-poltronas-escuta.jpg?v=real-100percent-20261012" alt="Poltronas de Atendimento">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-num">Espaço 2 · Psicoterapia & Escuta</div>
+            <h2 class="card-title">Poltronas de Atendimento</h2>
+            <p class="card-desc">
+              <strong>Como está hoje:</strong> Duas poltronas acolhedoras em tecido claro com mesinha lateral e iluminação intimista.<br />
+              <strong>Sua foto real:</strong> Foto do seu espaço de escuta clínica, mostrando as poltronas onde o senhor e o paciente sentam.
+            </p>
+          </div>
+          <div class="card-instruction">
+            Envie no chat: <em>«Esta é a foto das Poltronas»</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto 3 -->
+      <div class="card">
+        <div class="img-wrapper">
+          <span class="tag replace">Substituir</span>
+          <img src="/assets/consultorio/dr-humberto-foto-3-mesa-atendimento.jpg?v=real-100percent-20261012" alt="Mesa Médica">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-num">Espaço 3 · Anamnese & Prescrição</div>
+            <h2 class="card-title">Mesa Médica de Atendimento</h2>
+            <p class="card-desc">
+              <strong>Como está hoje:</strong> Mesa de trabalho em madeira nobre com computador, livros de apoio e ampla janela ao fundo.<br />
+              <strong>Sua foto real:</strong> Foto da sua mesa clínica de trabalho onde realiza as anotações e avaliações.
+            </p>
+          </div>
+          <div class="card-instruction">
+            Envie no chat: <em>«Esta é a foto da Mesa Médica»</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto 4 -->
+      <div class="card">
+        <div class="img-wrapper">
+          <span class="tag replace">Substituir</span>
+          <img src="/assets/consultorio/dr-humberto-foto-5-biblioteca-estudos.jpg?v=real-100percent-20261012" alt="Estante de Livros">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-num">Espaço 4 · Acervo & Tradição</div>
+            <h2 class="card-title">Estante de Livros e Decoração</h2>
+            <p class="card-desc">
+              <strong>Como está hoje:</strong> Estante com livros clássicos de psiquiatria/psicanálise e detalhes refinados de decoração.<br />
+              <strong>Sua foto real:</strong> Foto da sua estante de livros, títulos acadêmicos, quadros ou detalhes da sua sala.
+            </p>
+          </div>
+          <div class="card-instruction">
+            Envie no chat: <em>«Esta é a foto da Estante de Livros»</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto 5 -->
+      <div class="card">
+        <div class="img-wrapper">
+          <span class="tag replace">Substituir</span>
+          <img src="/assets/consultorio/dr-humberto-foto-4-ambiente-clinico.jpg?v=real-100percent-20261012" alt="Divã / Chaise Longue">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-num">Espaço 5 · Psicanálise & Ambiência</div>
+            <h2 class="card-title">Divã / Chaise Longue ou Sala Ampla</h2>
+            <p class="card-desc">
+              <strong>Como está hoje:</strong> Divã clássico de psicanálise e visão panorâmica da sala de consulta.<br />
+              <strong>Sua foto real:</strong> Foto ampla da sua sala de atendimento ou do divã / chaise longue.
+            </p>
+          </div>
+          <div class="card-instruction">
+            Envie no chat: <em>«Esta é a foto Geral da Sala / Divã»</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto 6 -->
+      <div class="card">
+        <div class="img-wrapper">
+          <span class="tag" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4);">Foto Real Oficial</span>
+          <img src="/assets/dr-humberto-calicchio.jpeg?v=1791766973709" alt="Dr. Humberto Calicchio">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-num">Médico Responsável</div>
+            <h2 class="card-title">Retrato do Dr. Humberto Calicchio</h2>
+            <p class="card-desc">
+              <strong>Situação:</strong> Esta já é sua foto real oficial profissional (CRM-SP 100468 / RQE 31774), perfeitamente integrada no site.<br />
+              <strong>Substituição:</strong> Caso queira atualizar futuramente por um novo retrato profissional, também pode enviar pelo chat!
+            </p>
+          </div>
+          <div class="card-instruction" style="border-left-color: #22c55e;">
+            Atualmente em uso ativo no site oficial.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-actions">
+      <a href="/" class="btn">← Voltar para o Site Oficial</a>
+    </div>
+  </div>
+</body>
+</html>
